@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SINFUSAS - Usuarios y Roles TailAdmin</title>
+  <link rel="stylesheet" href="../../assets/css/tailwind.min.css"/>
+  <link rel="stylesheet" href="../../style.css"/>
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/supabase.min.js"></script>
+  <script src="../../config.js"></script>
+  <script src="../../assets/js/icons.js"></script>
+</head>
+<body class="bg-[#F1F5F9] dark:bg-[#1A222C] text-body dark:text-bodydark flex min-h-screen">
+  
+  <!-- TailAdmin Official Dark Sidebar -->
+  <!-- Sidebar Backdrop Overlay (Mobile) -->
+  <div id="sidebar-overlay" onclick="closeSidebar()" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden lg:hidden transition-opacity"></div>
+
+  <!-- TailAdmin Official Dark Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 z-50 flex h-screen w-72 flex-col justify-between overflow-y-auto bg-[#1C2434] transition-transform duration-300 -translate-x-full lg:translate-x-0 lg:static lg:w-64 lg:shrink-0 border-r border-[#2E3A47]/40 shadow-2xl lg:shadow-none">
+    <div class="flex flex-col">
+      <!-- Sidebar Brand Header -->
+      <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 border-b border-[#2E3A47]/40">
+        <a href="../index.html" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold shadow-sm flex-shrink-0">
+            <span class="material-symbols-outlined text-[22px]">gavel</span>
+          </div>
+          <div>
+            <span class="text-lg font-bold text-white tracking-wide leading-none">SINFUSAS</span>
+            <span class="block text-[10px] text-bodydark uppercase tracking-wider font-semibold mt-0.5">Admin Console</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Protocol Status Badge -->
+      <div class="px-6 py-3">
+        <div class="flex items-center justify-between rounded bg-[#2E3A47]/40 px-3 py-1.5 text-xs">
+          <span class="text-[10px] font-medium text-bodydark uppercase tracking-wider">PROTOCOLO</span>
+          <span class="text-[10px] font-bold text-[#10B981]">2027.v4</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear px-4 py-2">
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            MENÚ PRINCIPAL
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="../index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">query_stats</span>
+                <span>Dashboard Ejecutivo</span>
+              </a>
+            </li>
+            <li>
+              <a href="../denuncias/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">folder_managed</span>
+                <span>Gestión de Denuncias</span>
+              </a>
+            </li>
+            <li>
+              <a href="../seguimientos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">history_edu</span>
+                <span>Bitácora Seguimientos</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            CONFIGURACIÓN
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="../tipos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">category</span>
+                <span>Catálogos Tipos</span>
+              </a>
+            </li>
+            <li>
+              <a href="../estados_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">rule</span>
+                <span>Catálogos Estados</span>
+              </a>
+            </li>
+            <li>
+              <a href="index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-white duration-300 ease-in-out bg-[#333A48] text-xs">
+                <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+                <span>Usuarios y Roles</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom Action -->
+    <div class="px-6 py-4 border-t border-[#2E3A47]/40 flex flex-col gap-2">
+      <div class="flex items-center justify-between text-xs text-bodydark">
+        <span class="flex items-center gap-1.5">
+          <span class="h-2 w-2 rounded-full bg-[#10B981]"></span>
+          <span>Cifrado E2E Activo</span>
+        </span>
+      </div>
+      <button onclick="logout()" class="flex items-center justify-center gap-2 w-full py-2 rounded bg-[#2E3A47]/40 hover:bg-[#D34053]/20 text-[#D34053] hover:text-[#D34053] transition-colors text-xs font-semibold">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Right Content Area -->
+  <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+    
+    <!-- Top Header Bar -->
+    <header class="sticky top-0 z-40 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border-b border-stroke dark:border-strokedark h-16 px-4 md:px-6 2xl:px-11 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Sidebar Hamburger Button -->
+        <button type="button" onclick="toggleSidebar()" aria-label="Abrir Menú" class="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-stroke dark:border-strokedark bg-gray-2 dark:bg-meta-4 text-black dark:text-white shadow-sm hover:bg-stroke dark:hover:bg-[#333A48] transition">
+          <svg class="w-5 h-5 shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary">SINFUSAS</span>
+        <span class="text-stroke dark:text-strokedark">|</span>
+        <span class="text-xs text-body dark:text-bodydark hidden sm:inline">Gestión de Acceso & Cuentas</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleTheme()" class="theme-toggle-btn text-xs">
+          🌙 Modo
+        </button>
+
+        <a href="../../index.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          <span class="hidden sm:inline">Portal Público</span>
+        </a>
+
+        <div class="h-7 w-px bg-stroke dark:bg-strokedark"></div>
+
+        <div class="flex items-center gap-2.5">
+          <div class="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <div class="hidden text-left lg:block">
+            <span class="block text-xs font-bold text-black dark:text-white">dfernandez</span>
+            <span class="block text-[10px] font-medium text-body dark:text-bodydark">SuperAdmin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="p-4 md:p-6 2xl:p-10 max-w-7xl w-full mx-auto space-y-6">
+      
+      <!-- Breadcrumb and Top Action Bar -->
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 class="text-title-md2 font-bold text-black dark:text-white">
+            Usuarios y Permisos de Acceso
+          </h2>
+          <p class="text-xs text-body dark:text-bodydark mt-1">Cuentas administrativas, agentes gremiales y operadores de sistema</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="create.html" class="inline-flex items-center justify-center gap-2 rounded bg-primary py-2.5 px-5 text-center font-medium text-xs text-white hover:bg-opacity-90 shadow-default">
+            <span class="material-symbols-outlined text-[16px]">person_add</span>
+            <span>Registrar Usuario</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- TailAdmin Table Card -->
+      <div class="rounded-xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="py-4 px-6.5 border-b border-stroke dark:border-strokedark flex items-center justify-between">
+          <span class="font-semibold text-black dark:text-white text-sm">Operadores Registrados</span>
+          <span class="text-xs text-body dark:text-bodydark">Roles: admin / agente / ciudadano</span>
+        </div>
+
+        <!-- Desktop / Tablet Table (hidden on mobile, visible on md+) -->
+        <div class="hidden md:block max-w-full overflow-x-auto">
+          <table class="w-full table-auto">
+            <thead>
+              <tr class="bg-gray-2 text-left dark:bg-meta-4">
+                <th class="py-3 px-4 font-medium text-black dark:text-white text-xs w-20">ID</th>
+                <th class="py-3 px-4 font-medium text-black dark:text-white text-xs">Nombre Completo</th>
+                <th class="py-3 px-4 font-medium text-black dark:text-white text-xs">Correo Electrónico</th>
+                <th class="py-3 px-4 font-medium text-black dark:text-white text-xs">Rol en Sistema</th>
+                <th class="py-3 px-4 font-medium text-black dark:text-white text-xs">Fecha Alta</th>
+                <th class="py-3 px-4 font-medium text-black dark:text-white text-xs text-center w-28">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="usuariosTableBody">
+              <tr>
+                <td colspan="6" class="border-b border-[#eee] py-6 px-4 dark:border-strokedark text-center text-xs text-body dark:text-bodydark">
+                  Cargando directorio de usuarios...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Card View (visible on mobile < md, hidden on md+) -->
+        <div id="usuariosMobileContainer" class="block md:hidden p-4 space-y-3">
+          <div class="py-6 text-center text-xs text-body dark:text-bodydark">Cargando directorio de usuarios...</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tableBody = document.getElementById('usuariosTableBody');
+      const mobileContainer = document.getElementById('usuariosMobileContainer');
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('usuarios')
+          .select('id, nombre, email, rol, fecha_registro, fecha_creacion')
+          .order('id', { ascending: true });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          if (tableBody) tableBody.innerHTML = '<tr><td colspan="6" class="border-b border-[#eee] py-6 px-4 dark:border-strokedark text-center text-xs text-body dark:text-bodydark">No hay usuarios registrados.</td></tr>';
+          if (mobileContainer) mobileContainer.innerHTML = '<div class="p-6 text-center text-xs text-body dark:text-bodydark">No hay usuarios registrados.</div>';
+          return;
+        }
+
+        // 1. Desktop Table
+        if (tableBody) {
+          tableBody.innerHTML = data.map(u => {
+            let rolBadge = '';
+            if (u.rol === 'admin') {
+              rolBadge = '<span class="inline-flex rounded-full bg-primary/10 py-0.5 px-2.5 text-[10px] font-bold text-primary border border-primary/20">Administrador</span>';
+            } else if (u.rol === 'agente') {
+              rolBadge = '<span class="inline-flex rounded-full bg-[#10B981]/10 py-0.5 px-2.5 text-[10px] font-bold text-[#10B981] border border-[#10B981]/20">Agente Gremial</span>';
+            } else {
+              rolBadge = '<span class="inline-flex rounded-full bg-[#64748B]/10 py-0.5 px-2.5 text-[10px] font-bold text-[#64748B] border border-[#64748B]/20">Ciudadano</span>';
+            }
+
+            const fRaw = u.fecha_registro || u.fecha_creacion;
+            const fecha = fRaw ? new Date(fRaw).toLocaleDateString('es-ES') : '-';
+
+            return `
+              <tr class="hover:bg-whiter dark:hover:bg-meta-4/20 border-b border-[#eee] dark:border-strokedark transition-colors">
+                <td class="py-3.5 px-4 font-mono text-primary font-bold text-xs">#${u.id}</td>
+                <td class="py-3.5 px-4">
+                  <a href="show.html?id=${u.id}" class="font-semibold text-black dark:text-white hover:text-primary transition-colors text-xs">
+                    ${u.nombre}
+                  </a>
+                </td>
+                <td class="py-3.5 px-4 font-mono text-xs text-body dark:text-bodydark">${u.email}</td>
+                <td class="py-3.5 px-4">${rolBadge}</td>
+                <td class="py-3.5 px-4 text-xs text-body dark:text-bodydark">${fecha}</td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="flex items-center justify-center space-x-2">
+                    <a href="show.html?id=${u.id}" class="hover:text-primary text-body dark:text-bodydark transition" title="Ver perfil">
+                      <span class="material-symbols-outlined text-[18px]">visibility</span>
+                    </a>
+                    <a href="edit.html?id=${u.id}" class="hover:text-warning text-body dark:text-bodydark transition" title="Editar">
+                      <span class="material-symbols-outlined text-[18px]">edit</span>
+                    </a>
+                    <button onclick="deleteUsuario(${u.id})" class="hover:text-danger text-body dark:text-bodydark transition" title="Eliminar">
+                      <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+        // 2. Mobile Cards
+        if (mobileContainer) {
+          mobileContainer.innerHTML = data.map(u => {
+            let rolBadge = '';
+            if (u.rol === 'admin') {
+              rolBadge = '<span class="inline-flex rounded-full bg-primary/10 py-0.5 px-2.5 text-[10px] font-bold text-primary border border-primary/20">Administrador</span>';
+            } else if (u.rol === 'agente') {
+              rolBadge = '<span class="inline-flex rounded-full bg-[#10B981]/10 py-0.5 px-2.5 text-[10px] font-bold text-[#10B981] border border-[#10B981]/20">Agente Gremial</span>';
+            } else {
+              rolBadge = '<span class="inline-flex rounded-full bg-[#64748B]/10 py-0.5 px-2.5 text-[10px] font-bold text-[#64748B] border border-[#64748B]/20">Ciudadano</span>';
+            }
+
+            const fRaw = u.fecha_registro || u.fecha_creacion;
+            const fecha = fRaw ? new Date(fRaw).toLocaleDateString('es-ES') : '-';
+
+            return `
+              <div class="rounded-xl border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark space-y-2.5">
+                <div class="flex items-center justify-between border-b border-stroke dark:border-strokedark pb-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs">
+                      ${u.nombre ? u.nombre.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                    <div>
+                      <span class="text-xs font-bold text-black dark:text-white block">${u.nombre}</span>
+                      <span class="font-mono text-[10px] text-body dark:text-bodydark">${u.email}</span>
+                    </div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-primary">#${u.id}</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-body dark:text-bodydark">Rol:</span>
+                  ${rolBadge}
+                </div>
+                <div class="pt-2 border-t border-stroke dark:border-strokedark flex items-center justify-between text-xs">
+                  <span class="text-[10px] text-body dark:text-bodydark">Alta: ${fecha}</span>
+                  <div class="flex items-center gap-2">
+                    <a href="show.html?id=${u.id}" class="text-xs text-primary font-medium hover:underline">Ver</a>
+                    <span>•</span>
+                    <a href="edit.html?id=${u.id}" class="text-xs text-warning font-medium hover:underline">Editar</a>
+                    <span>•</span>
+                    <button onclick="deleteUsuario(${u.id})" class="text-xs text-danger font-medium hover:underline">Borrar</button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+      } catch (err) {
+        console.error(err);
+        if (tableBody) tableBody.innerHTML = `<tr><td colspan="6" class="py-6 px-4 text-center text-danger text-xs">Error cargando usuarios: ${err.message}</td></tr>`;
+        if (mobileContainer) mobileContainer.innerHTML = `<div class="p-4 text-center text-danger text-xs">Error cargando usuarios: ${err.message}</div>`;
+      }
+    });
+
+    async function deleteUsuario(id) {
+      if (confirm(`¿Estás seguro de eliminar el usuario #${id}? Esta acción cancelará sus permisos de acceso.`)) {
+        try {
+          const { error } = await window.supabaseClient.from('usuarios').delete().eq('id', id);
+          if (error) throw error;
+          location.reload();
+        } catch (err) {
+          alert('Error al eliminar: ' + err.message);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

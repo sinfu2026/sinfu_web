@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SINFUSAS - Detalle Tipo de Denuncia TailAdmin</title>
+  <link rel="stylesheet" href="../../assets/css/tailwind.min.css"/>
+  <link rel="stylesheet" href="../../style.css"/>
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/supabase.min.js"></script>
+  <script src="../../config.js"></script>
+  <script src="../../assets/js/icons.js"></script>
+</head>
+<body class="bg-[#F1F5F9] dark:bg-[#1A222C] text-body dark:text-bodydark flex min-h-screen">
+  
+  <!-- TailAdmin Official Dark Sidebar -->
+  <!-- Sidebar Backdrop Overlay (Mobile) -->
+  <div id="sidebar-overlay" onclick="closeSidebar()" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden lg:hidden transition-opacity"></div>
+
+  <!-- TailAdmin Official Dark Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 z-50 flex h-screen w-72 flex-col justify-between overflow-y-auto bg-[#1C2434] transition-transform duration-300 -translate-x-full lg:translate-x-0 lg:static lg:w-64 lg:shrink-0 border-r border-[#2E3A47]/40 shadow-2xl lg:shadow-none">
+    <div class="flex flex-col">
+      <!-- Sidebar Brand Header -->
+      <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 border-b border-[#2E3A47]/40">
+        <a href="../index.html" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold shadow-sm flex-shrink-0">
+            <span class="material-symbols-outlined text-[22px]">gavel</span>
+          </div>
+          <div>
+            <span class="text-lg font-bold text-white tracking-wide leading-none">SINFUSAS</span>
+            <span class="block text-[10px] text-bodydark uppercase tracking-wider font-semibold mt-0.5">Admin Console</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Protocol Status Badge -->
+      <div class="px-6 py-3">
+        <div class="flex items-center justify-between rounded bg-[#2E3A47]/40 px-3 py-1.5 text-xs">
+          <span class="text-[10px] font-medium text-bodydark uppercase tracking-wider">PROTOCOLO</span>
+          <span class="text-[10px] font-bold text-[#10B981]">2027.v4</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear px-4 py-2">
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            MENÚ PRINCIPAL
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="../index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">query_stats</span>
+                <span>Dashboard Ejecutivo</span>
+              </a>
+            </li>
+            <li>
+              <a href="../denuncias/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">folder_managed</span>
+                <span>Gestión de Denuncias</span>
+              </a>
+            </li>
+            <li>
+              <a href="../seguimientos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">history_edu</span>
+                <span>Bitácora Seguimientos</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            CONFIGURACIÓN
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-white duration-300 ease-in-out bg-[#333A48] text-xs">
+                <span class="material-symbols-outlined text-[18px]">category</span>
+                <span>Catálogos Tipos</span>
+              </a>
+            </li>
+            <li>
+              <a href="../estados_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">rule</span>
+                <span>Catálogos Estados</span>
+              </a>
+            </li>
+            <li>
+              <a href="../usuarios/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+                <span>Usuarios y Roles</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom Action -->
+    <div class="px-6 py-4 border-t border-[#2E3A47]/40 flex flex-col gap-2">
+      <div class="flex items-center justify-between text-xs text-bodydark">
+        <span class="flex items-center gap-1.5">
+          <span class="h-2 w-2 rounded-full bg-[#10B981]"></span>
+          <span>Cifrado E2E Activo</span>
+        </span>
+      </div>
+      <button onclick="logout()" class="flex items-center justify-center gap-2 w-full py-2 rounded bg-[#2E3A47]/40 hover:bg-[#D34053]/20 text-[#D34053] hover:text-[#D34053] transition-colors text-xs font-semibold">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Right Content Area -->
+  <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+    
+    <!-- Top Header Bar -->
+    <header class="sticky top-0 z-40 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border-b border-stroke dark:border-strokedark h-16 px-4 md:px-6 2xl:px-11 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Sidebar Hamburger Button -->
+        <button type="button" onclick="toggleSidebar()" aria-label="Abrir Menú" class="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-stroke dark:border-strokedark bg-gray-2 dark:bg-meta-4 text-black dark:text-white shadow-sm hover:bg-stroke dark:hover:bg-[#333A48] transition">
+          <svg class="w-5 h-5 shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <a href="index.html" class="inline-flex items-center gap-1 text-xs font-semibold text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>Volver a Tipos</span>
+        </a>
+        <span class="text-stroke dark:text-strokedark">|</span>
+        <span class="text-xs text-body dark:text-bodydark hidden sm:inline">Detalle de Tipo</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleTheme()" class="theme-toggle-btn text-xs">
+          🌙 Modo
+        </button>
+
+        <a href="../../index.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          <span class="hidden sm:inline">Portal Público</span>
+        </a>
+
+        <div class="h-7 w-px bg-stroke dark:bg-strokedark"></div>
+
+        <div class="flex items-center gap-2.5">
+          <div class="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <div class="hidden text-left lg:block">
+            <span class="block text-xs font-bold text-black dark:text-white">dfernandez</span>
+            <span class="block text-[10px] font-medium text-body dark:text-bodydark">SuperAdmin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="p-4 md:p-6 2xl:p-10 max-w-4xl w-full mx-auto space-y-6">
+      
+      <!-- Breadcrumb & Header Action -->
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 class="text-title-md2 font-bold text-black dark:text-white" id="tipoNombre">
+            Cargando...
+          </h2>
+          <span class="font-mono text-xs text-primary mt-1 block" id="tipoId"></span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a id="editLink" href="#" class="inline-flex items-center justify-center gap-2 rounded bg-warning py-2.5 px-5 text-center font-medium text-xs text-white hover:bg-opacity-90 shadow-default">
+            <span class="material-symbols-outlined text-[16px]">edit</span>
+            <span>Editar Tipo</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Detail Card -->
+      <div class="rounded-xl border border-stroke bg-white p-6.5 shadow-default dark:border-strokedark dark:bg-boxdark space-y-6">
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-wider text-bodydark2 mb-2">
+            Descripción y Marco de Aplicación
+          </h4>
+          <div class="rounded-xl border border-stroke bg-whiter p-4 text-xs font-medium text-black dark:border-strokedark dark:bg-meta-4/20 dark:text-white leading-relaxed" id="tipoDescripcion">
+            Cargando descripción...
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-wider text-bodydark2 mb-3">
+            Expedientes de Denuncia Recientes en esta Categoría
+          </h4>
+          <div id="denunciasAsociadas" class="space-y-2">
+            <p class="text-xs text-body dark:text-bodydark italic">Consultando denuncias asociadas...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../admin.js"></script>
+  <script>
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (!id) window.location.href = 'index.html';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('editLink').href = `edit.html?id=${id}`;
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('tipos_denuncia')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (error) throw error;
+        document.getElementById('tipoNombre').textContent = data.nombre;
+        document.getElementById('tipoId').textContent = `ID #${data.id}`;
+        document.getElementById('tipoDescripcion').textContent = data.descripcion || 'Sin descripción o alcances procesales registrados para este tipo.';
+
+        // Cargar denuncias vinculadas
+        const { data: denuncias } = await window.supabaseClient
+          .from('denuncias')
+          .select('id, codigo, titulo, fecha_creacion')
+          .eq('tipo_id', id)
+          .order('id', { ascending: false })
+          .limit(5);
+
+        const container = document.getElementById('denunciasAsociadas');
+        if (denuncias && denuncias.length > 0) {
+          container.innerHTML = denuncias.map(d => `
+            <div class="flex justify-between items-center p-3 rounded-sm border border-stroke bg-white dark:border-strokedark dark:bg-boxdark-2 text-xs">
+              <div>
+                <span class="font-mono text-primary font-bold mr-2">${d.codigo || `#${d.id}`}</span>
+                <span class="font-semibold text-black dark:text-white">${d.titulo}</span>
+              </div>
+              <a href="../denuncias/show.html?id=${d.id}" class="inline-flex items-center gap-1 text-primary hover:underline font-medium">
+                <span>Ver expediente</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          `).join('');
+        } else {
+          container.innerHTML = '<p class="text-xs text-body dark:text-bodydark italic">No hay denuncias vinculadas a este tipo.</p>';
+        }
+      } catch (err) {
+        alert('Error al cargar tipo: ' + err.message);
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>

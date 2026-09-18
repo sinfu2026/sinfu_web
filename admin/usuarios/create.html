@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SINFUSAS - Registrar Usuario TailAdmin</title>
+  <link rel="stylesheet" href="../../assets/css/tailwind.min.css"/>
+  <link rel="stylesheet" href="../../style.css"/>
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/icons.js"></script>
+  <script src="../../assets/js/supabase.min.js"></script>
+  <script src="../../config.js"></script>
+</head>
+<body class="bg-[#F1F5F9] dark:bg-[#1A222C] text-body dark:text-bodydark flex min-h-screen">
+  
+  <!-- TailAdmin Official Dark Sidebar -->
+  <!-- Sidebar Backdrop Overlay (Mobile) -->
+  <div id="sidebar-overlay" onclick="closeSidebar()" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden lg:hidden transition-opacity"></div>
+
+  <!-- TailAdmin Official Dark Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 z-50 flex h-screen w-72 flex-col justify-between overflow-y-auto bg-[#1C2434] transition-transform duration-300 -translate-x-full lg:translate-x-0 lg:static lg:w-64 lg:shrink-0 border-r border-[#2E3A47]/40 shadow-2xl lg:shadow-none">
+    <div class="flex flex-col">
+      <!-- Sidebar Brand Header -->
+      <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 border-b border-[#2E3A47]/40">
+        <a href="../index.html" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold shadow-sm flex-shrink-0">
+            <span class="material-symbols-outlined text-[22px]">gavel</span>
+          </div>
+          <div>
+            <span class="text-lg font-bold text-white tracking-wide leading-none">SINFUSAS</span>
+            <span class="block text-[10px] text-bodydark uppercase tracking-wider font-semibold mt-0.5">Admin Console</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Protocol Status Badge -->
+      <div class="px-6 py-3">
+        <div class="flex items-center justify-between rounded bg-[#2E3A47]/40 px-3 py-1.5 text-xs">
+          <span class="text-[10px] font-medium text-bodydark uppercase tracking-wider">PROTOCOLO</span>
+          <span class="text-[10px] font-bold text-[#10B981]">2027.v4</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear px-4 py-2">
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            MENÚ PRINCIPAL
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="../index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">query_stats</span>
+                <span>Dashboard Ejecutivo</span>
+              </a>
+            </li>
+            <li>
+              <a href="../denuncias/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">folder_managed</span>
+                <span>Gestión de Denuncias</span>
+              </a>
+            </li>
+            <li>
+              <a href="../seguimientos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">history_edu</span>
+                <span>Bitácora Seguimientos</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            CONFIGURACIÓN
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="../tipos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">category</span>
+                <span>Catálogos Tipos</span>
+              </a>
+            </li>
+            <li>
+              <a href="../estados_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">rule</span>
+                <span>Catálogos Estados</span>
+              </a>
+            </li>
+            <li>
+              <a href="index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-white duration-300 ease-in-out bg-[#333A48] text-xs">
+                <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+                <span>Usuarios y Roles</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom Action -->
+    <div class="px-6 py-4 border-t border-[#2E3A47]/40 flex flex-col gap-2">
+      <div class="flex items-center justify-between text-xs text-bodydark">
+        <span class="flex items-center gap-1.5">
+          <span class="h-2 w-2 rounded-full bg-[#10B981]"></span>
+          <span>Cifrado E2E Activo</span>
+        </span>
+      </div>
+      <button onclick="logout()" class="flex items-center justify-center gap-2 w-full py-2 rounded bg-[#2E3A47]/40 hover:bg-[#D34053]/20 text-[#D34053] hover:text-[#D34053] transition-colors text-xs font-semibold">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Right Content Area -->
+  <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+    
+    <!-- Top Header Bar -->
+    <header class="sticky top-0 z-40 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border-b border-stroke dark:border-strokedark h-16 px-4 md:px-6 2xl:px-11 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Sidebar Hamburger Button -->
+        <button type="button" onclick="toggleSidebar()" aria-label="Abrir Menú" class="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-stroke dark:border-strokedark bg-gray-2 dark:bg-meta-4 text-black dark:text-white shadow-sm hover:bg-stroke dark:hover:bg-[#333A48] transition">
+          <svg class="w-5 h-5 shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <a href="index.html" class="inline-flex items-center gap-1 text-xs font-semibold text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+          <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+          <span>Volver a Usuarios</span>
+        </a>
+        <span class="text-stroke dark:text-strokedark">|</span>
+        <span class="text-xs text-body dark:text-bodydark hidden sm:inline">Nuevo Usuario</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleTheme()" class="theme-toggle-btn text-xs">
+          🌙 Modo
+        </button>
+
+        <a href="../../index.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          <span class="hidden sm:inline">Portal Público</span>
+        </a>
+
+        <div class="h-7 w-px bg-stroke dark:bg-strokedark"></div>
+
+        <div class="flex items-center gap-2.5">
+          <div class="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <div class="hidden text-left lg:block">
+            <span class="block text-xs font-bold text-black dark:text-white">dfernandez</span>
+            <span class="block text-[10px] font-medium text-body dark:text-bodydark">SuperAdmin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="p-4 md:p-6 2xl:p-10 max-w-4xl w-full mx-auto space-y-6">
+      
+      <!-- Breadcrumb -->
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-title-md2 font-bold text-black dark:text-white">
+          Registrar Usuario de Sistema
+        </h2>
+        <nav>
+          <ol class="flex items-center gap-2 text-xs">
+            <li><a class="font-medium text-body hover:text-primary dark:text-bodydark" href="../index.html">Dashboard</a></li>
+            <li class="text-bodydark2">/</li>
+            <li><a class="font-medium text-body hover:text-primary dark:text-bodydark" href="index.html">Usuarios</a></li>
+            <li class="text-bodydark2">/</li>
+            <li class="font-medium text-primary">Crear</li>
+          </ol>
+        </nav>
+      </div>
+
+      <!-- TailAdmin Form Card -->
+      <div class="rounded-xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="border-b border-stroke py-4 px-6.5 dark:border-strokedark flex items-center justify-between">
+          <h3 class="font-semibold text-black dark:text-white text-sm">
+            Credenciales y Perfil de Acceso
+          </h3>
+          <span class="text-xs text-body dark:text-bodydark">Campos obligatorios (*)</span>
+        </div>
+
+        <form id="createUsuarioForm" class="p-6.5">
+          <div class="mb-4.5">
+            <label class="mb-2.5 block text-xs font-semibold text-black dark:text-white">
+              Nombre Completo <span class="text-meta-1">*</span>
+            </label>
+            <input type="text" name="nombre" required placeholder="Ej: Dra. Valeria Méndez" 
+              class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-xs font-medium text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+          </div>
+
+          <div class="mb-4.5 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="mb-2.5 block text-xs font-semibold text-black dark:text-white">
+                Correo Electrónico Oficial <span class="text-meta-1">*</span>
+              </label>
+              <input type="email" name="email" required placeholder="valeria@sinfusas.org" 
+                class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-xs font-mono font-medium text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+            </div>
+
+            <div>
+              <label class="mb-2.5 block text-xs font-semibold text-black dark:text-white">
+                Rol en el Sistema <span class="text-meta-1">*</span>
+              </label>
+              <div class="relative z-20 bg-transparent dark:bg-form-input">
+                <select name="rol" required
+                  class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 text-xs font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary text-black dark:text-white">
+                  <option value="agente" selected>Agente de Seguimiento Gremial</option>
+                  <option value="admin">Administrador General</option>
+                  <option value="ciudadano">Ciudadano / Reportante</option>
+                </select>
+                <span class="absolute top-1/2 right-4 z-30 -translate-y-1/2 pointer-events-none text-body dark:text-bodydark">
+                  <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="mb-2.5 block text-xs font-semibold text-black dark:text-white">
+              Contraseña de Acceso <span class="text-meta-1">*</span>
+            </label>
+            <input type="password" name="password_hash" required placeholder="••••••••••••" 
+              class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-xs font-medium text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+            <p class="mt-1.5 text-[11px] text-body dark:text-bodydark">Se almacenará bajo protocolo de seguridad criptográfico.</p>
+          </div>
+
+          <div class="flex items-center justify-end gap-4 border-t border-stroke pt-5 dark:border-strokedark">
+            <a href="index.html" class="flex justify-center rounded border border-stroke py-2.5 px-6 font-medium text-xs text-black hover:shadow-1 dark:border-strokedark dark:text-white transition">
+              Cancelar
+            </a>
+            <button type="submit" id="submitBtn" class="flex justify-center rounded bg-primary py-2.5 px-6 font-medium text-xs text-white hover:bg-opacity-90 shadow-default transition">
+              Registrar Usuario
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="../admin.js"></script>
+  <script>
+    document.getElementById('createUsuarioForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Guardando...';
+
+      const formData = new FormData(e.target);
+      const payload = {
+        nombre: formData.get('nombre').trim(),
+        email: formData.get('email').trim().toLowerCase(),
+        password_hash: formData.get('password_hash'),
+        rol: formData.get('rol')
+      };
+
+      try {
+        const { error } = await window.supabaseClient.from('usuarios').insert([payload]);
+        if (error) throw error;
+        window.location.href = 'index.html';
+      } catch (err) {
+        alert('Error al registrar usuario: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = 'Registrar Usuario';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SINFUSAS - Dashboard TailAdmin</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/supabase.min.js"></script>
+  <script src="../config.js"></script>
+  <script src="../assets/js/icons.js"></script>
+</head>
+<body class="bg-[#F1F5F9] dark:bg-[#1A222C] text-body dark:text-bodydark flex min-h-screen">
+  
+  <!-- TailAdmin Official Dark Sidebar -->
+  <!-- Sidebar Backdrop Overlay (Mobile) -->
+  <div id="sidebar-overlay" onclick="closeSidebar()" class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm hidden lg:hidden transition-opacity"></div>
+
+  <!-- TailAdmin Official Dark Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 z-50 flex h-screen w-72 flex-col justify-between overflow-y-auto bg-[#1C2434] transition-transform duration-300 -translate-x-full lg:translate-x-0 lg:static lg:w-64 lg:shrink-0 border-r border-[#2E3A47]/40 shadow-2xl lg:shadow-none">
+    <div class="flex flex-col">
+      <!-- Sidebar Brand Header -->
+      <div class="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5 border-b border-[#2E3A47]/40">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold shadow-sm flex-shrink-0">
+            <span class="material-symbols-outlined text-[22px]">gavel</span>
+          </div>
+          <div>
+            <span class="text-lg font-bold text-white tracking-wide leading-none">SINFUSAS</span>
+            <span class="block text-[10px] text-bodydark uppercase tracking-wider font-semibold mt-0.5">Admin Console</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Protocol Status Badge -->
+      <div class="px-6 py-3">
+        <div class="flex items-center justify-between rounded bg-[#2E3A47]/40 px-3 py-1.5 text-xs">
+          <span class="text-[10px] font-medium text-bodydark uppercase tracking-wider">PROTOCOLO</span>
+          <span class="text-[10px] font-bold text-[#10B981]">2027.v4</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear px-4 py-2">
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            MENÚ PRINCIPAL
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-white duration-300 ease-in-out bg-[#333A48] text-xs">
+                <span class="material-symbols-outlined text-[18px]">query_stats</span>
+                <span>Dashboard Ejecutivo</span>
+              </a>
+            </li>
+            <li>
+              <a href="denuncias/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">folder_managed</span>
+                <span>Gestión de Denuncias</span>
+              </a>
+            </li>
+            <li>
+              <a href="seguimientos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">history_edu</span>
+                <span>Bitácora Seguimientos</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="mb-2.5 ml-3 text-xs font-semibold uppercase text-bodydark2">
+            CONFIGURACIÓN
+          </h3>
+          <ul class="mb-6 flex flex-col gap-1.5">
+            <li>
+              <a href="tipos_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">category</span>
+                <span>Catálogos Tipos</span>
+              </a>
+            </li>
+            <li>
+              <a href="estados_denuncia/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">rule</span>
+                <span>Catálogos Estados</span>
+              </a>
+            </li>
+            <li>
+              <a href="usuarios/index.html" class="group relative flex items-center gap-2.5 rounded-sm py-2.5 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-[#333A48] hover:text-white text-xs">
+                <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+                <span>Usuarios y Roles</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Bottom Action -->
+    <div class="px-6 py-4 border-t border-[#2E3A47]/40 flex flex-col gap-2">
+      <div class="flex items-center justify-between text-xs text-bodydark">
+        <span class="flex items-center gap-1.5">
+          <span class="h-2 w-2 rounded-full bg-[#10B981]"></span>
+          <span>Cifrado E2E Activo</span>
+        </span>
+      </div>
+      <button onclick="logout()" class="flex items-center justify-center gap-2 w-full py-2 rounded bg-[#2E3A47]/40 hover:bg-[#D34053]/20 text-[#D34053] hover:text-[#D34053] transition-colors text-xs font-semibold">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Right Content Area -->
+  <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+    
+    <!-- TailAdmin Top Header -->
+    <header class="sticky top-0 z-40 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none border-b border-stroke dark:border-strokedark h-16 px-4 md:px-6 2xl:px-11 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Mobile Sidebar Hamburger Button -->
+        <button type="button" onclick="toggleSidebar()" aria-label="Abrir Menú" class="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-stroke dark:border-strokedark bg-gray-2 dark:bg-meta-4 text-black dark:text-white shadow-sm hover:bg-stroke dark:hover:bg-[#333A48] transition">
+          <svg class="w-5 h-5 shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary">SINFUSAS</span>
+        <span class="text-stroke dark:text-strokedark">|</span>
+        <span class="text-xs text-body dark:text-bodydark hidden sm:inline">Comisión de Gestión y Asuntos Gremiales</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleTheme()" class="theme-toggle-btn text-xs">
+          🌙 Modo
+        </button>
+
+        <a href="../index.html" target="_blank" class="inline-flex items-center gap-1 text-xs font-medium text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+          <span class="hidden sm:inline">Portal Público</span>
+        </a>
+
+        <div class="h-7 w-px bg-stroke dark:bg-strokedark"></div>
+
+        <div class="flex items-center gap-2.5">
+          <div class="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <div class="hidden text-left lg:block">
+            <span class="block text-xs font-bold text-black dark:text-white" id="currentUserName">dfernandez</span>
+            <span class="block text-[10px] font-medium text-body dark:text-bodydark">SuperAdmin</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="p-4 md:p-6 2xl:p-10 space-y-6">
+      
+      <!-- Page Header & Action Buttons -->
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 class="text-title-md2 font-bold text-black dark:text-white">
+            Tablero de Control y Analítica
+          </h2>
+          <p class="text-xs sm:text-sm text-body dark:text-bodydark mt-1">
+            Monitoreo procedimental de quejas y efectividad ciudadana en tiempo real.
+          </p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <a href="denuncias/create.html" class="inline-flex items-center justify-center gap-2 rounded bg-primary py-2.5 px-4 text-xs sm:text-sm font-medium text-white hover:bg-opacity-90 shadow-sm transition">
+            <span class="material-symbols-outlined text-[16px]">add_circle</span>
+            <span>+ Nueva Denuncia</span>
+          </a>
+          <a href="seguimientos_denuncia/create.html" class="inline-flex items-center justify-center gap-2 rounded border border-stroke dark:border-strokedark bg-white dark:bg-boxdark py-2.5 px-4 text-xs sm:text-sm font-medium text-black dark:text-white hover:shadow-1 transition">
+            <span class="material-symbols-outlined text-[16px]">history_edu</span>
+            <span>+ Actuación</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 TailAdmin KPI Cards Row -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 md:gap-6 2xl:gap-7.5">
+        
+        <!-- Card 1: Total Denuncias -->
+        <div class="rounded-xl border border-stroke bg-white py-5 px-6 shadow-default dark:border-strokedark dark:bg-boxdark flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#EFF2F7] dark:bg-meta-4 text-primary">
+              <span class="material-symbols-outlined text-[22px]">folder_copy</span>
+            </div>
+            <span class="text-xs font-semibold text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded-full" id="kpiPendientesCount">-- en trámite</span>
+          </div>
+          <div class="mt-4">
+            <h4 class="text-title-md font-bold text-black dark:text-white" id="kpiTotalDenuncias">--</h4>
+            <span class="text-xs font-medium text-body dark:text-bodydark">Total Denuncias Registradas</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Resueltas -->
+        <div class="rounded-xl border border-stroke bg-white py-5 px-6 shadow-default dark:border-strokedark dark:bg-boxdark flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#EFF2F7] dark:bg-meta-4 text-[#10B981]">
+              <span class="material-symbols-outlined text-[22px]">verified</span>
+            </div>
+            <span class="text-xs font-bold text-[#10B981]" id="kpiTasaResolucion">0%</span>
+          </div>
+          <div class="mt-4">
+            <h4 class="text-title-md font-bold text-black dark:text-white text-[#10B981]" id="kpiResueltas">--</h4>
+            <span class="text-xs font-medium text-body dark:text-bodydark">Expedientes Resueltos</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Seguimientos -->
+        <div class="rounded-xl border border-stroke bg-white py-5 px-6 shadow-default dark:border-strokedark dark:bg-boxdark flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#EFF2F7] dark:bg-meta-4 text-[#3C50E0]">
+              <span class="material-symbols-outlined text-[22px]">history_edu</span>
+            </div>
+            <span class="text-[10px] font-semibold uppercase text-body dark:text-bodydark bg-[#EFF2F7] dark:bg-meta-4 px-2 py-0.5 rounded">Auditado</span>
+          </div>
+          <div class="mt-4">
+            <h4 class="text-title-md font-bold text-black dark:text-white" id="kpiTotalSeguimientos">--</h4>
+            <span class="text-xs font-medium text-body dark:text-bodydark">Actuaciones y Notas Registradas</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Operadores -->
+        <div class="rounded-xl border border-stroke bg-white py-5 px-6 shadow-default dark:border-strokedark dark:bg-boxdark flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-[#EFF2F7] dark:bg-meta-4 text-[#FFA70B]">
+              <span class="material-symbols-outlined text-[22px]">group</span>
+            </div>
+            <span class="text-[10px] font-bold text-primary">Operativo</span>
+          </div>
+          <div class="mt-4">
+            <h4 class="text-title-md font-bold text-black dark:text-white" id="kpiTotalUsuarios">--</h4>
+            <span class="text-xs font-medium text-body dark:text-bodydark">Operadores / Usuarios del Sistema</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TailAdmin Table: Ultimas Denuncias Ingresadas -->
+      <div class="rounded-xl border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div class="flex items-center justify-between pb-4 border-b border-stroke dark:border-strokedark">
+          <div>
+            <h3 class="font-semibold text-black dark:text-white text-base sm:text-lg">
+              Últimas Denuncias Ingresadas
+            </h3>
+            <p class="text-xs text-body dark:text-bodydark">Registro en tiempo real de expedientes</p>
+          </div>
+          <a href="denuncias/index.html" class="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
+            <span>Ver todas</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="max-w-full overflow-x-auto mt-2">
+          <table class="w-full table-auto text-left">
+            <thead>
+              <tr class="bg-gray-2 dark:bg-meta-4">
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white">Folio</th>
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white">Fecha</th>
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white">Denunciante</th>
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white">Tipo</th>
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white">Título</th>
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white">Estado</th>
+                <th class="py-3 px-4 font-semibold text-xs uppercase text-black dark:text-white text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="recentDenunciasBody" class="divide-y divide-stroke dark:divide-strokedark">
+              <tr><td colspan="7" class="py-6 text-center text-xs text-body dark:text-bodydark">Cargando denuncias recientes...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+  <script>
+    // Carga de KPIs y registros recientes
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const [denRes, segRes, usrRes, estRes] = await Promise.all([
+          window.supabaseClient.from('denuncias').select('id, codigo, titulo, denunciante, fecha_creacion, estado_id, tipo_id, estados_denuncia(nombre, color_hex), tipos_denuncia(nombre)', { count: 'exact' }),
+          window.supabaseClient.from('seguimientos_denuncia').select('id', { count: 'exact' }),
+          window.supabaseClient.from('usuarios').select('id', { count: 'exact' }),
+          window.supabaseClient.from('estados_denuncia').select('id, nombre')
+        ]);
+
+        const denuncias = denRes.data || [];
+        const totalDenuncias = denRes.count || denuncias.length;
+        const totalSeg = segRes.count || (segRes.data?.length || 0);
+        const totalUsr = usrRes.count || (usrRes.data?.length || 0);
+
+        document.getElementById('kpiTotalDenuncias').textContent = totalDenuncias;
+        document.getElementById('kpiTotalSeguimientos').textContent = totalSeg;
+        document.getElementById('kpiTotalUsuarios').textContent = totalUsr;
+
+        // Identificar resueltas
+        const resueltas = denuncias.filter(d => (d.estados_denuncia?.nombre || '').toLowerCase().includes('resuelt'));
+        document.getElementById('kpiResueltas').textContent = resueltas.length;
+
+        const tasa = totalDenuncias > 0 ? Math.round((resueltas.length / totalDenuncias) * 100) : 0;
+        document.getElementById('kpiTasaResolucion').textContent = `${tasa}%`;
+
+        const pendientes = totalDenuncias - resueltas.length;
+        document.getElementById('kpiPendientesCount').textContent = `${pendientes} en trámite`;
+
+        // Renderizar tabla reciente (últimas 6)
+        const recentBody = document.getElementById('recentDenunciasBody');
+        const sorted = [...denuncias].sort((a, b) => b.id - a.id).slice(0, 6);
+
+        if (sorted.length > 0) {
+          recentBody.innerHTML = sorted.map(d => {
+            const f = d.fecha_creacion ? new Date(d.fecha_creacion).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : '-';
+            const color = d.estados_denuncia?.color_hex || '#3C50E0';
+            const estNombre = d.estados_denuncia?.nombre || 'Recibida';
+            const codBadge = d.codigo 
+              ? `<span class="inline-flex rounded bg-primary/10 px-2 py-0.5 font-mono text-xs font-bold text-primary">${d.codigo}</span>` 
+              : `<span class="font-mono text-xs text-body dark:text-bodydark">#${d.id}</span>`;
+            return `
+              <tr class="hover:bg-whiter dark:hover:bg-meta-4/20 transition-colors">
+                <td class="py-3.5 px-4 text-xs">
+                  <div class="flex items-center gap-1.5">
+                    ${codBadge}
+                    <span class="text-[10px] text-body dark:text-bodydark">#${d.id}</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-xs text-body dark:text-bodydark">${f}</td>
+                <td class="py-3.5 px-4 text-xs font-medium text-black dark:text-white">${d.denunciante || 'Anónimo'}</td>
+                <td class="py-3.5 px-4 text-xs text-body dark:text-bodydark">${d.tipos_denuncia?.nombre || '-'}</td>
+                <td class="py-3.5 px-4 text-xs font-medium text-black dark:text-white truncate max-w-xs">${d.titulo}</td>
+                <td class="py-3.5 px-4 text-xs">
+                  <span class="inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-semibold" style="background-color: ${color}15; color: ${color}; border: 1px solid ${color}30">
+                    ${estNombre}
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-xs text-right">
+                  <a href="denuncias/show.html?id=${d.id}" class="font-semibold text-primary hover:underline">Ver detalle</a>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        } else {
+          recentBody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-xs text-body dark:text-bodydark">No hay denuncias registradas aún.</td></tr>';
+        }
+
+      } catch (err) {
+        console.error('Error cargando KPIs:', err);
+      }
+    });
+  </script>
+</body>
+</html>

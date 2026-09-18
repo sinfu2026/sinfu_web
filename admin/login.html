@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SINFUSAS - Inicio de Sesión TailAdmin</title>
+  <link rel="stylesheet" href="../assets/css/tailwind.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/supabase.min.js"></script>
+  <script src="../config.js"></script>
+  <script src="../assets/js/icons.js"></script>
+</head>
+<body class="bg-[#F1F5F9] dark:bg-[#1A222C] text-body dark:text-bodydark flex min-h-screen flex-col justify-between">
+  
+  <!-- Minimal TailAdmin Top Nav for Auth -->
+  <header class="w-full border-b border-stroke bg-white py-4 px-6 dark:border-strokedark dark:bg-boxdark flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold shadow-sm">
+        <span class="material-symbols-outlined text-[22px]">gavel</span>
+      </div>
+      <div>
+        <h1 class="text-base font-bold text-black dark:text-white leading-tight">SINFUSAS</h1>
+        <p class="text-xs text-body dark:text-bodydark">Gestión Gremial de Denuncias</p>
+      </div>
+    </a>
+    <div class="flex items-center gap-3">
+      <button onclick="toggleTheme()" class="theme-toggle-btn text-xs">
+        🌙 Modo
+      </button>
+      <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-medium text-body hover:text-primary dark:text-bodydark dark:hover:text-white">
+        <span class="material-symbols-outlined text-[16px]">home</span>
+        <span>Portal Público</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- TailAdmin Centered Auth Card -->
+  <main class="flex flex-1 items-center justify-center p-4 sm:p-8">
+    <div class="w-full max-w-md rounded-xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark p-6 sm:p-10">
+      
+      <div class="mb-8 text-center">
+        <span class="mb-1.5 block text-sm font-semibold uppercase tracking-wider text-primary">Panel Administrativo</span>
+        <h2 class="text-2xl font-bold text-black dark:text-white sm:text-title-xl">
+          Iniciar Sesión
+        </h2>
+        <p class="text-xs sm:text-sm text-body dark:text-bodydark mt-1">
+          Ingrese sus credenciales operativas de SINFUSAS
+        </p>
+      </div>
+
+      <form id="loginForm" class="space-y-5">
+        <div>
+          <label for="username" class="mb-2.5 block text-xs font-medium uppercase tracking-wider text-black dark:text-white">
+            Usuario o Correo Electrónico
+          </label>
+          <div class="relative">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              placeholder="dfernandez"
+              class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 pl-4 pr-10 text-sm text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default dark:border-strokedark dark:bg-boxdark-2 dark:text-white dark:focus:border-primary"
+            />
+            <span class="absolute right-3.5 top-3.5 text-body dark:text-bodydark">
+              <span class="material-symbols-outlined text-[20px]">person</span>
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="mb-2.5 block text-xs font-medium uppercase tracking-wider text-black dark:text-white">
+            Contraseña
+          </label>
+          <div class="relative">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="••••••••"
+              class="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 pl-4 pr-10 text-sm text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default dark:border-strokedark dark:bg-boxdark-2 dark:text-white dark:focus:border-primary"
+            />
+            <span class="absolute right-3.5 top-3.5 text-body dark:text-bodydark">
+              <span class="material-symbols-outlined text-[20px]">lock</span>
+            </span>
+          </div>
+        </div>
+
+        <div id="loginError" class="hidden rounded border border-[#D34053]/30 bg-[#D34053]/10 p-3 text-xs text-[#D34053] flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">error</span>
+          <span id="loginErrorText">Usuario o contraseña incorrectos.</span>
+        </div>
+
+        <button
+          type="submit"
+          id="loginBtn"
+          class="w-full cursor-pointer rounded bg-primary py-3 px-4 text-sm font-medium text-white transition hover:bg-opacity-90 flex items-center justify-center gap-2 shadow-sm"
+        >
+          <span class="material-symbols-outlined text-[18px]">login</span>
+          <span>Ingresar al Sistema</span>
+        </button>
+      </form>
+
+      <div class="mt-8 border-t border-stroke pt-4 text-center dark:border-strokedark">
+        <p class="text-xs text-body dark:text-bodydark">
+          ¿Desea consultar el estado de una queja?
+          <a href="../seguimiento.html" class="text-primary hover:underline font-semibold ml-1">Rastrear Folio</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-stroke py-4 px-6 text-center text-xs text-body dark:border-strokedark dark:bg-boxdark dark:text-bodydark">
+    SINFUSAS &copy; 2026 - Sistema de Gestión de Denuncias Gremiales. TailAdmin UI/UX.
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>
