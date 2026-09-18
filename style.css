@@ -1,0 +1,579 @@
+/* ==========================================================================
+   TailAdmin Official Design System (Basado en tailbase / TailAdmin v2-v4)
+   SINFUSAS Enterprise Edition
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* TailAdmin Typography */
+  --font-outfit: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* TailAdmin Theme Palette (tailbase) */
+  --color-brand-50: #ecf3ff;
+  --color-brand-100: #dde9ff;
+  --color-brand-500: #465fff;
+  --color-brand-600: #3641f5;
+  
+  --color-primary: #465fff;
+  --color-primary-hover: #3641f5;
+  
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f2f4f7;
+  --color-gray-200: #e4e7ec;
+  --color-gray-300: #d0d5dd;
+  --color-gray-400: #98a2b3;
+  --color-gray-500: #667085;
+  --color-gray-600: #475467;
+  --color-gray-700: #344054;
+  --color-gray-800: #1d2939;
+  --color-gray-900: #101828;
+  --color-gray-dark: #1a2231;
+
+  --color-success-50: #edfcf2;
+  --color-success-500: #12b76a;
+  --color-success-600: #039855;
+  --color-error-50: #fef3f2;
+  --color-error-500: #f04438;
+  --color-error-600: #d92d20;
+  --color-warning-50: #fffaeb;
+  --color-warning-500: #f79009;
+
+  /* Surfaces & Token Aliases */
+  --bg-main: #f9fafb;
+  --bg-card: #ffffff;
+  --bg-sidebar: #101828;
+  --text-main: #101828;
+  --text-muted: #667085;
+  --border-color: #e4e7ec;
+
+  --color-stroke: #e4e7ec;
+  --color-strokedark: #1d2939;
+  --color-body: #667085;
+  --color-bodydark: #98a2b3;
+  --color-bodydark1: #d0d5dd;
+  --color-bodydark2: #98a2b3;
+  --color-black: #101828;
+  --color-whiten: #f9fafb;
+  --color-whiter: #f2f4f7;
+  --color-boxdark: #1a2231;
+  --color-boxdark-2: #101828;
+  --color-graydark: #1d2939;
+  --color-gray-2: #f2f4f7;
+  --color-meta-4: #1d2939;
+}
+
+html.dark {
+  --bg-main: #101828;
+  --bg-card: #1a2231;
+  --bg-sidebar: #0c111d;
+  --text-main: #f2f4f7;
+  --text-muted: #98a2b3;
+  --border-color: #1d2939;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-outfit);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Instant theme switch: disable ALL transitions briefly during toggle */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition-duration: 0s !important;
+}
+
+/* Material Symbols Helper */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   TailAdmin Rounded Design System (tailbase standard)
+   ========================================================================== */
+.rounded-none { border-radius: 0px !important; }
+.rounded-sm   { border-radius: 0.5rem !important; }   /* 8px */
+.rounded      { border-radius: 0.625rem !important; } /* 10px */
+.rounded-md   { border-radius: 0.625rem !important; } /* 10px */
+.rounded-lg   { border-radius: 0.75rem !important; }  /* 12px */
+.rounded-xl   { border-radius: 0.875rem !important; } /* 14px */
+.rounded-2xl  { border-radius: 1rem !important; }     /* 16px */
+.rounded-3xl  { border-radius: 1.5rem !important; }   /* 24px */
+.rounded-full { border-radius: 9999px !important; }
+
+/* Shadows */
+.shadow-theme-xs {
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+.shadow-theme-sm,
+.shadow-card,
+.shadow-default {
+  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1), 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+}
+.shadow-theme-md {
+  box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+}
+.shadow-theme-lg {
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+}
+
+/* TailAdmin Card Component */
+.tailadmin-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem !important;
+  box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1), 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Form Controls & Crisp Input Borders (tailbase standard)
+   ========================================================================== */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+select,
+textarea,
+.tailadmin-input,
+.border-\[1\.5px\],
+[class*="border-[1.5px]"] {
+  border-width: 1.5px !important;
+  border-style: solid !important;
+  border-color: #CBD5E1 !important; /* Visible crisp border in light mode */
+  background-color: #FFFFFF !important;
+  color: #101828 !important;
+  border-radius: 0.625rem !important; /* 10px rounded curve */
+  padding: 0.75rem 1.25rem; /* Generous padding for touch & readability */
+  font-size: 0.875rem !important;
+  font-family: inherit;
+  outline: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+input.has-icon-left,
+.has-icon-left,
+#folioInput {
+  padding-left: 3rem !important;
+}
+
+/* Dark Mode Inputs */
+html.dark input[type="text"],
+html.dark input[type="password"],
+html.dark input[type="email"],
+html.dark input[type="search"],
+html.dark input[type="number"],
+html.dark input[type="date"],
+html.dark select,
+html.dark textarea,
+html.dark .tailadmin-input,
+html.dark .border-\[1\.5px\],
+html.dark [class*="border-[1.5px]"] {
+  border-color: #3E4D61 !important; /* Visible crisp border in dark mode */
+  background-color: #101828 !important;
+  color: #F2F4F7 !important;
+}
+
+/* Focus states with signature primary glow */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus,
+.tailadmin-input:focus,
+.border-\[1\.5px\]:focus {
+  border-color: #465fff !important;
+  box-shadow: 0 0 0 3.5px rgba(70, 95, 255, 0.18) !important;
+}
+
+/* Placeholders */
+input::placeholder,
+textarea::placeholder,
+.tailadmin-input::placeholder {
+  color: #98A2B3 !important;
+  opacity: 1 !important;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #667085 !important;
+}
+
+/* Select dropdown */
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23667085' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+  background-position: right 0.75rem center !important;
+  background-repeat: no-repeat !important;
+  background-size: 1.25em 1.25em !important;
+  padding-right: 2.5rem !important;
+}
+html.dark select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2398A2B3' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+}
+
+/* Disabled */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #F2F4F7 !important;
+  border-color: #E4E7EC !important;
+  color: #98A2B3 !important;
+  cursor: not-allowed !important;
+}
+html.dark input:disabled,
+html.dark select:disabled,
+html.dark textarea:disabled {
+  background-color: #1A2231 !important;
+  border-color: #1D2939 !important;
+  color: #667085 !important;
+}
+
+/* ==========================================================================
+   TailAdmin Buttons (tailbase standard)
+   ========================================================================== */
+.tailadmin-btn-primary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem !important;
+  background-color: #465fff !important;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.tailadmin-btn-primary:hover,
+.btn-primary:hover {
+  background-color: #3641f5 !important;
+}
+
+.tailadmin-btn-primary:active,
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.tailadmin-btn-secondary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem !important;
+  border: 1.5px solid var(--border-color) !important;
+  background-color: var(--bg-card);
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.tailadmin-btn-secondary:hover,
+.btn-secondary:hover {
+  background-color: var(--bg-main);
+}
+
+/* ==========================================================================
+   TailAdmin Badge System (tailbase standard)
+   ========================================================================== */
+.tailadmin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tailadmin-badge-success {
+  background-color: rgba(18, 183, 106, 0.12);
+  color: #039855;
+  border: 1px solid rgba(18, 183, 106, 0.25);
+}
+html.dark .tailadmin-badge-success {
+  background-color: rgba(18, 183, 106, 0.15);
+  color: #12b76a;
+}
+
+.tailadmin-badge-primary {
+  background-color: rgba(70, 95, 255, 0.12);
+  color: #465fff;
+  border: 1px solid rgba(70, 95, 255, 0.25);
+}
+html.dark .tailadmin-badge-primary {
+  background-color: rgba(70, 95, 255, 0.15);
+  color: #7592ff;
+}
+
+.tailadmin-badge-warning {
+  background-color: rgba(247, 144, 9, 0.12);
+  color: #dc6803;
+  border: 1px solid rgba(247, 144, 9, 0.25);
+}
+html.dark .tailadmin-badge-warning {
+  background-color: rgba(247, 144, 9, 0.15);
+  color: #f79009;
+}
+
+.tailadmin-badge-danger {
+  background-color: rgba(240, 68, 56, 0.12);
+  color: #d92d20;
+  border: 1px solid rgba(240, 68, 56, 0.25);
+}
+html.dark .tailadmin-badge-danger {
+  background-color: rgba(240, 68, 56, 0.15);
+  color: #f04438;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1.5px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--bg-main);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   TailAdmin Sidebar & Mobile Drawer Engine (100% Reliable Mobile-First)
+   ========================================================================== */
+#sidebar {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@media (max-width: 1023px) {
+  #sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    height: 100dvh !important; /* Dynamic viewport for mobile browsers */
+    width: 18rem !important; /* 288px */
+    z-index: 9999 !important;
+    transform: translateX(-100%) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    /* SOLID opaque background — NEVER transparent on mobile */
+    background-color: #1C2434 !important;
+    opacity: 1 !important;
+  }
+  #sidebar.translate-x-0,
+  #sidebar.sidebar-open {
+    transform: translateX(0) !important;
+  }
+  #sidebar-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 9998 !important;
+    background-color: rgba(16, 24, 40, 0.7) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  #sidebar {
+    position: static !important;
+    transform: none !important;
+    width: 16rem !important; /* 256px */
+    flex-shrink: 0 !important;
+    box-shadow: none !important;
+  }
+  #sidebar-overlay {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   TailAdmin Color & Utility Overrides
+   ========================================================================== */
+.bg-primary { background-color: #465fff !important; }
+.hover\:bg-primary-hover:hover { background-color: #3641f5 !important; }
+.text-primary { color: #465fff !important; }
+
+.bg-boxdark { background-color: #1a2231 !important; }
+.bg-boxdark-2 { background-color: #101828 !important; }
+.bg-graydark { background-color: #1d2939 !important; }
+.bg-gray-2 { background-color: #f2f4f7 !important; }
+.bg-meta-4 { background-color: #1d2939 !important; }
+.bg-whiter { background-color: #f2f4f7 !important; }
+
+.border-stroke { border-color: #e4e7ec !important; }
+.border-strokedark { border-color: #1d2939 !important; }
+
+.text-body { color: #667085 !important; }
+.text-bodydark { color: #98a2b3 !important; }
+.text-bodydark1 { color: #d0d5dd !important; }
+.text-bodydark2 { color: #98a2b3 !important; }
+.text-black { color: #101828 !important; }
+.text-white { color: #ffffff !important; }
+
+html.dark .dark\:bg-boxdark { background-color: #1a2231 !important; }
+html.dark .dark\:bg-boxdark-2 { background-color: #101828 !important; }
+html.dark .dark\:bg-meta-4 { background-color: #1d2939 !important; }
+html.dark .dark\:border-strokedark { border-color: #1d2939 !important; }
+html.dark .dark\:border-form-strokedark { border-color: #3e4d61 !important; }
+html.dark .dark\:bg-form-input { background-color: #101828 !important; }
+html.dark .dark\:text-white { color: #ffffff !important; }
+html.dark .dark\:text-bodydark { color: #98a2b3 !important; }
+html.dark .dark\:text-bodydark1 { color: #d0d5dd !important; }
+
+/* ==========================================================================
+   Native SVG Icon Standards & Anti-Blowout Dimensions
+   ========================================================================== */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.w-3 { width: 0.75rem !important; }
+.h-3 { height: 0.75rem !important; }
+.w-3\.5, .w-3\\.5 { width: 0.875rem !important; }
+.h-3\.5, .h-3\\.5 { height: 0.875rem !important; }
+.w-4 { width: 1rem !important; }
+.h-4 { height: 1rem !important; }
+.w-4\.5, .w-4\\.5 { width: 1.125rem !important; }
+.h-4\.5, .h-4\\.5 { height: 1.125rem !important; }
+.w-5 { width: 1.25rem !important; }
+.h-5 { height: 1.25rem !important; }
+.w-5\.5, .w-5\\.5 { width: 1.375rem !important; }
+.h-5\.5, .h-5\\.5 { height: 1.375rem !important; }
+.w-6 { width: 1.5rem !important; }
+.h-6 { height: 1.5rem !important; }
+.w-7 { width: 1.75rem !important; }
+.h-7 { height: 1.75rem !important; }
+.w-8 { width: 2rem !important; }
+.h-8 { height: 2rem !important; }
+.w-9 { width: 2.25rem !important; }
+.h-9 { height: 2.25rem !important; }
+.w-10 { width: 2.5rem !important; }
+.h-10 { height: 2.5rem !important; }
+
+.svg-icon {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   TailAdmin Custom Spacing Utilities (Non-standard Tailwind values)
+   ========================================================================== */
+.px-5 { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+.pt-6 { padding-top: 1.5rem !important; }
+.pb-2\.5 { padding-bottom: 0.625rem !important; }
+.p-6\.5 { padding: 1.625rem !important; }
+.px-6\.5 { padding-left: 1.625rem !important; padding-right: 1.625rem !important; }
+.py-5\.5 { padding-top: 1.375rem !important; padding-bottom: 1.375rem !important; }
+.py-6\.5 { padding-top: 1.625rem !important; padding-bottom: 1.625rem !important; }
+
+@media (min-width: 640px) {
+  .sm\:px-7\.5 { padding-left: 1.875rem !important; padding-right: 1.875rem !important; }
+}
+@media (min-width: 1024px) {
+  .lg\:py-6\.5 { padding-top: 1.625rem !important; padding-bottom: 1.625rem !important; }
+}
+@media (min-width: 1280px) {
+  .xl\:pb-1 { padding-bottom: 0.25rem !important; }
+}
+
+/* ==========================================================================
+   Table Dividers & Row Utilities
+   ========================================================================== */
+.divide-stroke > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e4e7ec !important;
+}
+html.dark .divide-strokedark > :not([hidden]) ~ :not([hidden]),
+html.dark .dark\:divide-strokedark > :not([hidden]) ~ :not([hidden]) {
+  border-color: #1d2939 !important;
+}
+
+/* Row hover states */
+.hover\:bg-whiter:hover { background-color: #f2f4f7 !important; }
+html.dark .dark\:hover\:bg-meta-4\/20:hover { background-color: rgba(29, 41, 57, 0.2) !important; }
+
+/* ==========================================================================
+   Missing Color Utilities for Action Icons & Tables
+   ========================================================================== */
+.text-warning { color: #f79009 !important; }
+.hover\:text-warning:hover { color: #f79009 !important; }
+html.dark .dark\:hover\:text-warning:hover { color: #f79009 !important; }
+
+/* Dark mode card bg via CSS (failsafe) */
+html.dark .dark\:bg-boxdark { background-color: #1a2231 !important; }
+html.dark .dark\:bg-boxdark-2 { background-color: #101828 !important; }
+html.dark .dark\:border-strokedark { border-color: #1d2939 !important; }
+html.dark .dark\:text-white { color: #ffffff !important; }
+html.dark .dark\:text-bodydark { color: #98a2b3 !important; }
+html.dark .dark\:text-bodydark1 { color: #d0d5dd !important; }
+
+/* ==========================================================================
+   SVG Action Icon Reliability (Force minimum render size)
+   ========================================================================== */
+td svg,
+.flex svg {
+  min-width: 0.875rem;
+  min-height: 0.875rem;
+}
+
+/* Ensure action link/button areas are clickable and icons visible */
+td a[title] svg,
+td button[title] svg {
+  width: 1.125rem !important;
+  height: 1.125rem !important;
+  display: block !important;
+}

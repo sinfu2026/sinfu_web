@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <title>SINFUSAS - Comprobante de Denuncia TailAdmin</title>
+  <link rel="stylesheet" href="assets/css/tailwind.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/qrcode.min.js"></script>
+  <script src="assets/js/icons.js"></script>
+</head>
+<body class="bg-whiter dark:bg-boxdark-2 text-body dark:text-bodydark flex flex-col min-h-screen">
+  
+  <!-- TailAdmin Header Bar -->
+  <header class="fixed top-0 w-full z-50 bg-white dark:bg-boxdark border-b border-stroke dark:border-strokedark h-16 shadow-default">
+    <div class="max-w-4xl mx-auto h-full px-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="index.html" class="h-10 w-10 rounded-xl flex items-center justify-center text-white font-bold shadow-default flex-shrink-0" style="background: linear-gradient(135deg, #465fff 0%, #6366f1 100%);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m14.5 12.5-8 8a2.119 2.119 0 0 1-3-3l8-8"/>
+            <path d="m16 16 6-6"/><path d="m8 8 6-6"/>
+            <path d="m9 7 8 8"/><path d="m21 11-8-8"/>
+          </svg>
+        </a>
+        <div class="flex flex-col min-w-0">
+          <span class="font-bold text-base text-black dark:text-white truncate">SINFUSAS</span>
+          <span class="text-[11px] text-body dark:text-bodydark truncate">Comprobante de Recepción de Denuncia</span>
+        </div>
+      </div>
+      <button onclick="toggleTheme()" class="theme-toggle-btn inline-flex items-center gap-1 text-xs">
+        <span>Modo</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 flex flex-col items-center justify-center w-full px-4" style="padding-top: 6rem; padding-bottom: 5rem;">
+    <div class="w-full max-w-lg space-y-4 text-center">
+      
+      <!-- TailAdmin Warning Alert Banner -->
+      <div class="rounded-xl border-l-6 border-warning bg-warning bg-opacity-[15%] p-4 text-left shadow-sm dark:bg-opacity-30">
+        <div class="flex items-start gap-3">
+          <div class="text-warning mt-0.5 shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+          </div>
+          <div class="text-xs text-black dark:text-white">
+            <strong class="font-bold block text-sm mb-0.5">¡IMPORTANTE: Haz una captura o descarga tu código!</strong>
+            <span class="text-body dark:text-bodydark">SINFUSAS utilizará este código de 6 dígitos para que puedas verificar avances o resoluciones de forma confidencial.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Dossier Card (TailAdmin) -->
+      <section id="receiptCard" class="rounded-xl border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark space-y-5 text-left">
+        
+        <div class="flex items-start justify-between gap-3 border-b border-stroke pb-4 dark:border-strokedark">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded bg-[#10B981]/10 text-[#10B981] flex items-center justify-center shrink-0">
+              <svg width="24" height="24" class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <div>
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-body dark:text-bodydark block">Expediente Oficial SINFUSAS</span>
+              <h1 class="text-base font-bold text-black dark:text-white leading-tight">Denuncia Registrada con Éxito</h1>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] text-xs font-bold border border-[#10B981]/20 flex items-center gap-1">
+            <svg width="14" height="14" class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Recibida</span>
+          </span>
+        </div>
+
+        <!-- Random 6-Digit Code Box -->
+        <div class="p-5 rounded-xl border border-stroke bg-whiter dark:border-strokedark dark:bg-boxdark-2 space-y-2 text-center">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-body dark:text-bodydark">Tu Código Seguro de Rastreo</span>
+          <div class="flex items-center justify-center gap-3">
+            <span class="text-3xl sm:text-4xl font-mono font-extrabold text-primary tracking-widest" id="codigoDisplay">------</span>
+            <button onclick="copiarCodigo()" title="Copiar Código" class="w-9 h-9 rounded bg-white dark:bg-boxdark border border-stroke dark:border-strokedark hover:border-primary flex items-center justify-center text-body hover:text-primary transition shadow-xs">
+              <svg width="16" height="16" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+            </button>
+          </div>
+          <span id="copyFeedback" class="hidden text-xs text-[#10B981] font-bold">¡Código copiado al portapapeles!</span>
+          <div class="text-[11px] text-body dark:text-bodydark" id="folioMetaDisplay">Folio de Expediente: #FOL-0000</div>
+        </div>
+
+        <!-- QR Code & Details Layout -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl border border-stroke bg-whiter dark:border-strokedark dark:bg-boxdark-2 items-center">
+          <!-- QR Canvas Box -->
+          <div class="flex flex-col items-center justify-center space-y-2">
+            <div id="qrcodeBox" class="p-2.5 bg-white rounded shadow-sm border border-stroke flex items-center justify-center min-h-[140px] min-w-[140px]">
+              <!-- Injected by QRCode.js -->
+            </div>
+            <span class="text-[10px] text-body dark:text-bodydark font-medium">Escanea para rastrear</span>
+          </div>
+
+          <!-- Summary list -->
+          <div class="space-y-2 text-xs">
+            <div>
+              <span class="text-body dark:text-bodydark block font-semibold text-[10px] uppercase">Denunciante:</span>
+              <span class="text-black dark:text-white font-bold" id="cardDenunciante">Anónimo</span>
+            </div>
+            <div>
+              <span class="text-body dark:text-bodydark block font-semibold text-[10px] uppercase">Fecha de Registro:</span>
+              <span class="text-black dark:text-white font-medium" id="cardFecha">Hoy</span>
+            </div>
+            <div>
+              <span class="text-body dark:text-bodydark block font-semibold text-[10px] uppercase">Estado Inicial:</span>
+              <span class="text-primary font-bold">Recibida / Pendiente</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Buttons Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+          <button onclick="descargarComprobante3x4()" class="w-full py-2.5 px-3 rounded border border-stroke bg-white dark:border-strokedark dark:bg-boxdark-2 hover:border-primary text-black dark:text-white text-xs font-semibold flex items-center justify-center gap-2 transition shadow-sm">
+            <svg width="16" height="16" class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+            </svg>
+            <span>Descargar Tarjeta (3:4)</span>
+          </button>
+          <button onclick="descargarQRDirecto()" class="w-full py-2.5 px-3 rounded border border-stroke bg-white dark:border-strokedark dark:bg-boxdark-2 hover:border-[#10B981] text-black dark:text-white text-xs font-semibold flex items-center justify-center gap-2 transition shadow-sm">
+            <svg width="16" height="16" class="w-4 h-4 text-[#10B981] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/>
+              <rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/>
+              <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+            </svg>
+            <span>Descargar Solo QR</span>
+          </button>
+        </div>
+
+        <!-- Primary Action Links -->
+        <div class="space-y-2 pt-2 border-t border-stroke dark:border-strokedark">
+          <a id="btnIrSeguimiento" href="seguimiento.html" class="flex w-full justify-center items-center gap-2 rounded bg-primary py-3 px-6 font-semibold text-xs text-white hover:bg-opacity-90 shadow-default transition active:scale-[0.99]">
+            <svg width="16" height="16" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+            </svg>
+            <span>Ir al Rastreador con este Código</span>
+          </a>
+          <a href="index.html" class="flex w-full justify-center items-center gap-2 rounded border border-stroke bg-white dark:border-strokedark dark:bg-boxdark py-2.5 px-6 font-semibold text-xs text-black dark:text-white hover:border-primary transition">
+            <svg width="16" height="16" class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            <span>Generar Otra Denuncia</span>
+          </a>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const codigo = params.get('codigo') || params.get('folio');
+    const id = params.get('id') || params.get('folio');
+
+    let trackingUrl = '';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (codigo) {
+        document.getElementById('codigoDisplay').textContent = codigo;
+        document.getElementById('folioMetaDisplay').textContent = id ? `Folio de Expediente: #FOL-${String(id).padStart(4, '0')}` : `Código Seguro: ${codigo}`;
+        
+        // Link directo con el código
+        trackingUrl = `${window.location.origin}${window.location.pathname.replace('codigo.html', 'seguimiento.html')}?folio=${codigo}`;
+        document.getElementById('btnIrSeguimiento').href = `seguimiento.html?folio=${codigo}`;
+
+        // Generar Código QR con la URL de seguimiento
+        try {
+          new QRCode(document.getElementById('qrcodeBox'), {
+            text: trackingUrl,
+            width: 120,
+            height: 120,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        } catch (e) {
+          console.error('Error generando QR:', e);
+        }
+
+        // Consultar fecha y denunciante de Supabase para llenar la tarjeta
+        if (id) {
+          try {
+            const { data } = await window.supabaseClient
+              .from('denuncias')
+              .select('titulo, denunciante, fecha_creacion')
+              .eq('id', id)
+              .maybeSingle();
+
+            if (data) {
+              if (data.denunciante) document.getElementById('cardDenunciante').textContent = data.denunciante;
+              if (data.fecha_creacion) {
+                const f = new Date(data.fecha_creacion).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+                document.getElementById('cardFecha').textContent = f;
+              }
+            }
+          } catch(err) {}
+        }
+      } else {
+        document.getElementById('codigoDisplay').textContent = 'ERROR';
+        document.getElementById('codigoDisplay').classList.add('text-danger');
+      }
+    });
+
+    function copiarCodigo() {
+      if (!codigo) return;
+      navigator.clipboard.writeText(codigo).then(() => {
+        const feedback = document.getElementById('copyFeedback');
+        feedback.classList.remove('hidden');
+        setTimeout(() => feedback.classList.add('hidden'), 2500);
+      });
+    }
+
+    // Descargar QR como imagen PNG
+    function descargarQRDirecto() {
+      const qrCanvas = document.querySelector('#qrcodeBox canvas');
+      const qrImg = document.querySelector('#qrcodeBox img');
+      const codigoVal = (codigo || document.getElementById('codigoDisplay')?.textContent || '000000').trim();
+
+      let dataUrl = '';
+      if (qrCanvas && qrCanvas.width > 0) {
+        dataUrl = qrCanvas.toDataURL('image/png');
+      } else if (qrImg && qrImg.src && !qrImg.src.startsWith('data:image/gif')) {
+        dataUrl = qrImg.src;
+      }
+
+      if (!dataUrl) {
+        alert('Generando código QR, por favor reintenta en un momento.');
+        return;
+      }
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `QR_Denuncia_${codigoVal}.png`;
+      a.click();
+    }
+
+    // Generar y descargar comprobante gráfico con proporción 3:4 en Canvas
+    function descargarComprobante3x4() {
+      const codigoVal = (codigo || document.getElementById('codigoDisplay')?.textContent || '000000').trim();
+      const idVal = (id || '1').trim();
+      const denuncianteTxt = (document.getElementById('cardDenunciante')?.textContent || 'Anónimo').trim();
+
+      // Crear Canvas proporción 3:4 (900 x 1200 px para alta resolución)
+      const width = 900;
+      const height = 1200;
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+
+      // Fondo oscuro TailAdmin #1C2434
+      ctx.fillStyle = '#1C2434';
+      ctx.fillRect(0, 0, width, height);
+
+      // Franja superior de gradiente azul TailAdmin
+      const gradient = ctx.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, '#3C50E0');
+      gradient.addColorStop(0.5, '#10B981');
+      gradient.addColorStop(1, '#80CAEE');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, 14);
+
+      // Tarjeta contenedora interior TailAdmin (#24303F)
+      ctx.fillStyle = '#24303F';
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(50, 50, 800, 1100, 16);
+        ctx.fill();
+      } else {
+        ctx.fillRect(50, 50, 800, 1100);
+      }
+      ctx.strokeStyle = '#2E3A47';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Cabecera: Logo & Título
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 38px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('SINFUSAS', width / 2, 115);
+
+      ctx.fillStyle = '#80CAEE';
+      ctx.font = '600 20px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('COMPROBANTE DE RECEPCIÓN DE DENUNCIA', width / 2, 160);
+
+      ctx.fillStyle = '#8A99AD';
+      ctx.font = '15px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('Sindicato de Funcionarios - Gestión Gremial e Institucional', width / 2, 195);
+
+      // Línea divisoria
+      ctx.strokeStyle = '#2E3A47';
+      ctx.beginPath();
+      ctx.moveTo(90, 225);
+      ctx.lineTo(width - 90, 225);
+      ctx.stroke();
+
+      // Recuadro del Código de 6 dígitos
+      ctx.fillStyle = '#1A222C';
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(90, 250, 720, 160, 12);
+        ctx.fill();
+      } else {
+        ctx.fillRect(90, 250, 720, 160);
+      }
+      ctx.strokeStyle = '#3C50E0';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Textos del recuadro de código
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#80CAEE';
+      ctx.font = 'bold 18px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('CÓDIGO DE SEGUIMIENTO SINFUSAS', width / 2, 290);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 64px "Courier New", Courier, monospace';
+      ctx.fillText(codigoVal, width / 2, 355);
+
+      // Dibujar Código QR centrado
+      const qrCanvas = document.querySelector('#qrcodeBox canvas');
+      const qrImg = document.querySelector('#qrcodeBox img');
+
+      // Fondo blanco del contenedor QR
+      const qrBoxX = 310;
+      const qrBoxY = 440;
+      const qrBoxSize = 280;
+      ctx.fillStyle = '#ffffff';
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 12);
+        ctx.fill();
+      } else {
+        ctx.fillRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize);
+      }
+
+      // Dibujar QR desde canvas existente o imagen
+      let qrDrawn = false;
+      if (qrCanvas && qrCanvas.width > 0) {
+        try {
+          ctx.drawImage(qrCanvas, qrBoxX + 20, qrBoxY + 20, 240, 240);
+          qrDrawn = true;
+        } catch (e) {
+          console.warn('No se pudo dibujar desde canvas del QR:', e);
+        }
+      }
+      if (!qrDrawn && qrImg && qrImg.complete && qrImg.naturalWidth > 0) {
+        try {
+          ctx.drawImage(qrImg, qrBoxX + 20, qrBoxY + 20, 240, 240);
+          qrDrawn = true;
+        } catch (e) {
+          console.warn('No se pudo dibujar desde imagen del QR:', e);
+        }
+      }
+
+      // Subtítulo QR
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#8A99AD';
+      ctx.font = '15px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('Escanea este QR para consultar el estado de tu denuncia en SINFUSAS', width / 2, 755);
+
+      // Metadatos en tabla visual
+      ctx.fillStyle = '#1A222C';
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(90, 785, 720, 240, 12);
+        ctx.fill();
+      } else {
+        ctx.fillRect(90, 785, 720, 240);
+      }
+
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+
+      const labels = [
+        { label: 'Folio del Expediente:', val: `#FOL-${String(idVal).padStart(4, '0')}`, color: '#ffffff' },
+        { label: 'Denunciante:', val: denuncianteTxt, color: '#ffffff' },
+        { label: 'Fecha de Ingreso:', val: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }), color: '#ffffff' },
+        { label: 'Órgano de Gestión:', val: 'SINFUSAS - Comisión de Denuncias', color: '#10B981' }
+      ];
+
+      const startY = 825;
+      const rowGap = 52;
+
+      labels.forEach((item, idx) => {
+        const rowY = startY + (idx * rowGap);
+        ctx.fillStyle = '#8A99AD';
+        ctx.font = '16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(item.label, 130, rowY);
+
+        ctx.fillStyle = item.color;
+        ctx.font = 'bold 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(item.val, 430, rowY);
+      });
+
+      // Pie de advertencia
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillStyle = '#F87171';
+      ctx.fillText('Guarda esta imagen. El código es necesario para consultar resoluciones.', width / 2, 1075);
+
+      // Trigger de descarga (PNG de alta definición)
+      const link = document.createElement('a');
+      link.download = `Comprobante_Denuncia_${codigoVal}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>

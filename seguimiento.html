@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <title>SINFUSAS - Rastrear Folio TailAdmin</title>
+  <link rel="stylesheet" href="assets/css/tailwind.min.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/icons.js"></script>
+</head>
+
+<body class="bg-whiter dark:bg-boxdark-2 text-body dark:text-bodydark flex flex-col min-h-screen">
+
+  <!-- TailAdmin Header Bar -->
+  <header class="sticky top-0 z-50 w-full bg-white dark:bg-boxdark border-b border-stroke dark:border-strokedark h-16 shadow-default">
+    <div class="max-w-4xl mx-auto h-full px-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="index.html" class="h-10 w-10 rounded-xl flex items-center justify-center text-white font-bold shadow-default flex-shrink-0" style="background: linear-gradient(135deg, #465fff 0%, #6366f1 100%);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m14.5 12.5-8 8a2.119 2.119 0 0 1-3-3l8-8"/>
+            <path d="m16 16 6-6"/><path d="m8 8 6-6"/>
+            <path d="m9 7 8 8"/><path d="m21 11-8-8"/>
+          </svg>
+        </a>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-base text-black dark:text-white truncate">SINFUSAS</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold" style="background-color:rgba(18,183,106,0.1);color:#12b76a;border:1px solid rgba(18,183,106,0.2);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>Canal Seguro</span>
+            </span>
+          </div>
+          <span class="text-[11px] text-body dark:text-bodydark truncate">Rastreo de Expediente y Estado</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="index.html" class="inline-flex items-center gap-1.5 rounded-lg border border-stroke dark:border-strokedark bg-white dark:bg-boxdark py-1.5 px-3 text-xs font-semibold text-black dark:text-white hover:border-primary hover:text-primary transition shadow-default">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#465fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span class="hidden sm:inline">Nueva Denuncia</span>
+        </a>
+        <button onclick="toggleTheme()" class="theme-toggle-btn inline-flex items-center gap-1 text-xs">
+          <span>Modo</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+
+    <!-- Search & Tracking Intake Card -->
+    <section class="rounded-2xl border border-stroke bg-white p-6 sm:p-7 shadow-default dark:border-strokedark dark:bg-boxdark space-y-5 overflow-hidden" style="border-top: 4px solid #465fff;">
+      <div class="flex items-center justify-between">
+        <span class="text-xs uppercase tracking-wider font-semibold text-primary flex items-center gap-2">
+          <span class="flex h-7 w-7 items-center justify-center rounded-lg" style="background:rgba(70,95,255,0.1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#465fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+            </svg>
+          </span>
+          Consulta de Expediente
+        </span>
+        <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1.5" style="background-color:rgba(18,183,106,0.1);color:#12b76a;border:1px solid rgba(18,183,106,0.2);">
+          <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:#12b76a;"></span>
+          En Línea
+        </span>
+      </div>
+
+      <form id="buscarForm" class="space-y-4">
+        <div class="relative flex items-center">
+          <span class="absolute left-4 text-body dark:text-bodydark pointer-events-none flex items-center justify-center">
+            <svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/>
+            </svg>
+          </span>
+          <input id="folioInput" required type="text"
+            placeholder="Ingresa tu Código de 6 dígitos o Folio (Ej. 247431)"
+            class="has-icon-left w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 text-xs font-semibold text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary uppercase"
+            style="padding-left: 2.85rem !important;" />
+        </div>
+        <button type="submit" id="buscarBtn"
+          class="flex w-full justify-center items-center gap-2 rounded-lg bg-primary py-3.5 px-6 font-semibold text-xs text-white hover:bg-opacity-90 shadow-default transition active:scale-[0.99]">
+          <svg width="16" height="16" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+          <span>Consultar Estado</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Mensaje de Error -->
+    <div id="errorMsg" class="hidden rounded-xl border border-danger/30 bg-danger/10 p-4 text-danger text-xs flex items-center gap-2.5">
+      <svg width="20" height="20" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span id="errorText">No se encontró ninguna denuncia con este código o folio.</span>
+    </div>
+
+    <!-- Dossier Header (Result Container) -->
+    <div id="resultadoContainer" class="hidden space-y-6">
+
+      <section class="rounded-2xl border border-stroke bg-white p-6 sm:p-7 shadow-default dark:border-strokedark dark:bg-boxdark space-y-5">
+        <div class="flex items-start justify-between gap-3 border-b border-stroke pb-4 dark:border-strokedark">
+          <div class="flex flex-col">
+            <span class="text-[10px] text-body dark:text-bodydark uppercase font-semibold tracking-wider">Expediente de Denuncia</span>
+            <div class="flex items-center gap-2 mt-1">
+              <span class="font-mono text-lg font-bold text-primary" id="resFolio">#FOL-000</span>
+            </div>
+          </div>
+          <!-- State Badge -->
+          <div class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold" id="resEstadoBadge">
+            <span class="w-2 h-2 rounded-full bg-current"></span>
+            <span id="resEstadoTexto">Recibida</span>
+          </div>
+        </div>
+
+        <!-- Title & Typology -->
+        <div class="space-y-2.5">
+          <h2 class="text-base sm:text-lg font-bold text-black dark:text-white leading-snug" id="resTitulo">
+            Título del reporte
+          </h2>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-gray-2 dark:bg-boxdark-2 text-black dark:text-white text-xs font-medium border border-stroke dark:border-strokedark" id="resTipoBadge">
+              <svg width="14" height="14" class="text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/>
+                <rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>
+              </svg>
+              <span id="resTipoTexto">Categoría</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-gray-2 dark:bg-boxdark-2 text-body dark:text-bodydark text-xs border border-stroke dark:border-strokedark">
+              <svg width="14" height="14" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <span id="resFechaTexto">Fecha</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Denunciante Shield Indicator -->
+        <div class="rounded-xl border border-stroke bg-whiter p-4 flex items-center justify-between gap-3 dark:border-strokedark dark:bg-meta-4/20">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 rounded-lg bg-[#10B981]/10 flex items-center justify-center shrink-0 text-[#10B981]">
+              <svg width="18" height="18" class="shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="flex flex-col min-w-0">
+              <span class="text-xs font-bold text-black dark:text-white truncate" id="resDenunciante">Denunciante Anónimo Protegido</span>
+              <span class="text-[11px] text-body dark:text-bodydark truncate">Identidad resguardada bajo secreto gremial</span>
+            </div>
+          </div>
+          <svg width="18" height="18" class="text-[#10B981] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+
+        <!-- Descripción -->
+        <div class="space-y-2">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-body dark:text-bodydark">Detalle de los hechos expuestos</span>
+          <div class="p-4 sm:p-5 rounded-xl border border-stroke bg-whiter text-xs sm:text-sm text-black dark:border-strokedark dark:bg-boxdark-2 dark:text-white leading-relaxed whitespace-pre-wrap font-normal" id="resDescripcion">
+            Descripción de los hechos...
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Vertical Audit Timeline (seguimientos_denuncia) -->
+      <section class="rounded-2xl border border-stroke bg-white p-6 sm:p-7 shadow-default dark:border-strokedark dark:bg-boxdark space-y-5">
+        <div class="flex items-center justify-between pb-4 border-b border-stroke dark:border-strokedark">
+          <span class="text-xs sm:text-sm uppercase tracking-wider font-bold text-black dark:text-white flex items-center gap-2.5">
+            <svg width="18" height="18" class="text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/>
+            </svg>
+            Bitácora de Seguimiento y Actuaciones
+          </span>
+          <span class="text-xs text-body dark:text-bodydark font-medium" id="resSegCount">0 actuaciones</span>
+        </div>
+
+        <div id="timelineContainer" class="space-y-4 pt-2">
+          <!-- Timeline items injected dynamically -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const folioFromUrl = params.get('folio') || params.get('codigo');
+      if (folioFromUrl) {
+        document.getElementById('folioInput').value = folioFromUrl;
+        ejecutarBusqueda(folioFromUrl);
+      }
+    });
+
+    document.getElementById('buscarForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const folio = document.getElementById('folioInput').value.trim();
+      if (folio) ejecutarBusqueda(folio);
+    });
+
+    async function ejecutarBusqueda(folio) {
+      const btn = document.getElementById('buscarBtn');
+      const resContainer = document.getElementById('resultadoContainer');
+      const errDiv = document.getElementById('errorMsg');
+      const errText = document.getElementById('errorText');
+
+      btn.disabled = true;
+      btn.innerHTML = `
+        <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
+          <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/>
+          <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
+          <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+        </svg>
+        <span>Buscando...</span>
+      `;
+      resContainer.classList.add('hidden');
+      errDiv.classList.add('hidden');
+
+      try {
+        const queryTerm = folio.trim();
+        // Consultar denuncia con tipo y estado: buscar por codigo prioritariamente o id
+        let query = window.supabaseClient
+          .from('denuncias')
+          .select(`
+            id,
+            codigo,
+            titulo,
+            descripcion,
+            denunciante,
+            fecha_creacion,
+            estado_id,
+            tipo_id,
+            estados_denuncia (id, nombre, color_hex),
+            tipos_denuncia (id, nombre)
+          `);
+
+        if (/^\d{6}$/.test(queryTerm)) {
+          query = query.or(`codigo.eq.${queryTerm},id.eq.${queryTerm}`);
+        } else if (!isNaN(queryTerm)) {
+          query = query.or(`id.eq.${queryTerm},codigo.eq.${queryTerm}`);
+        } else {
+          query = query.eq('codigo', queryTerm);
+        }
+
+        const { data: denuncia, error } = await query.maybeSingle();
+
+        if (error) {
+          throw error;
+        }
+
+        if (!denuncia) {
+          errText.textContent = 'No se localizó ningún expediente con el código o folio ingresado.';
+          errDiv.classList.remove('hidden');
+          return;
+        }
+
+        const denunciaId = denuncia.id;
+
+        // Consultar seguimientos_denuncia asociados
+        const { data: seguimientos } = await window.supabaseClient
+          .from('seguimientos_denuncia')
+          .select(`
+            id,
+            comentario,
+            fecha_registro,
+            estados_denuncia (nombre, color_hex),
+            usuarios (nombre)
+          `)
+          .eq('denuncia_id', denunciaId)
+          .order('id', { ascending: false });
+
+        // Población de datos
+        const folioDisplayTxt = denuncia.codigo ? `CÓDIGO: ${denuncia.codigo}` : `#FOL-${String(denuncia.id).padStart(4, '0')}`;
+        document.getElementById('resFolio').textContent = folioDisplayTxt;
+        document.getElementById('resTitulo').textContent = denuncia.titulo;
+        document.getElementById('resDescripcion').textContent = denuncia.descripcion;
+
+        const denuncianteNombre = denuncia.denunciante || 'Anónimo';
+        document.getElementById('resDenunciante').textContent = denuncianteNombre === 'Anónimo'
+          ? 'Denunciante Anónimo Protegido'
+          : `Denunciante: ${denuncianteNombre}`;
+
+        // Fecha
+        const fecha = denuncia.fecha_creacion ? new Date(denuncia.fecha_creacion).toLocaleDateString('es-ES', {
+          day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        }) : 'No registrada';
+        document.getElementById('resFechaTexto').textContent = fecha;
+
+        // Categoría con SVG nativo acorde al motivo
+        const catNombre = denuncia.tipos_denuncia?.nombre || 'General';
+        const resTipoBadge = document.getElementById('resTipoBadge');
+        if (resTipoBadge && window.getTipoSvg) {
+          resTipoBadge.innerHTML = `
+            <span class="text-primary flex items-center justify-center">${window.getTipoSvg(catNombre)}</span>
+            <span id="resTipoTexto">${catNombre}</span>
+          `;
+        } else {
+          document.getElementById('resTipoTexto').textContent = catNombre;
+        }
+
+        // Estado Badge
+        const estadoNombre = denuncia.estados_denuncia?.nombre || 'Recibida';
+        const estadoColor = denuncia.estados_denuncia?.color_hex || '#3C50E0';
+        const estadoBadge = document.getElementById('resEstadoBadge');
+        document.getElementById('resEstadoTexto').textContent = estadoNombre;
+        estadoBadge.style.backgroundColor = `${estadoColor}15`;
+        estadoBadge.style.color = estadoColor;
+        estadoBadge.style.border = `1px solid ${estadoColor}40`;
+
+        // Renderizar Timeline de seguimientos
+        const timeline = document.getElementById('timelineContainer');
+        const segCount = document.getElementById('resSegCount');
+        timeline.innerHTML = '';
+
+        if (seguimientos && seguimientos.length > 0) {
+          segCount.textContent = `${seguimientos.length} actuación(es) registrada(s)`;
+          seguimientos.forEach(seg => {
+            const fSeg = seg.fecha_registro ? new Date(seg.fecha_registro).toLocaleDateString('es-ES', {
+              day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+            }) : '-';
+            const item = document.createElement('div');
+            item.className = 'relative pl-6 pb-4 border-l-2 border-primary/30 last:border-0 last:pb-0';
+            item.innerHTML = `
+              <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary flex items-center justify-center ring-4 ring-white dark:ring-boxdark">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </div>
+              <div class="rounded-xl border border-stroke bg-whiter p-4 sm:p-5 dark:border-strokedark dark:bg-boxdark-2 space-y-2">
+                <div class="flex items-center justify-between text-[11px] sm:text-xs">
+                  <span class="font-bold text-primary">${seg.usuarios?.nombre || 'Agente Gremial SINFUSAS'}</span>
+                  <span class="text-body dark:text-bodydark font-medium">${fSeg}</span>
+                </div>
+                <p class="text-xs sm:text-sm text-black dark:text-white leading-relaxed font-normal">${seg.comentario}</p>
+                ${seg.estados_denuncia ? `
+                  <div class="pt-1">
+                    <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold inline-block" style="background-color: ${seg.estados_denuncia.color_hex}15; color: ${seg.estados_denuncia.color_hex}; border: 1px solid ${seg.estados_denuncia.color_hex}40">
+                      Estado: ${seg.estados_denuncia.nombre}
+                    </span>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+            timeline.appendChild(item);
+          });
+        } else {
+          segCount.textContent = 'Sin actuaciones adicionales';
+          timeline.innerHTML = `
+            <div class="p-5 rounded-xl border border-stroke bg-whiter text-xs text-body dark:border-strokedark dark:bg-boxdark-2 dark:text-bodydark text-center">
+              La denuncia se encuentra registrada y en cola de recepción para primera evaluación gremial.
+            </div>
+          `;
+        }
+
+        resContainer.classList.remove('hidden');
+
+      } catch (err) {
+        console.error('Error al rastrear folio:', err);
+        errText.textContent = err.message || 'Error consultando el folio.';
+        errDiv.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+          <span>Consultar Estado</span>
+        `;
+      }
+    }
+  </script>
+</body>
+
+</html>

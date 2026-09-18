@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <title>SINFUSAS - Portal Oficial de Denuncias</title>
+  <meta name="description" content="Canal oficial, seguro y confidencial para la radicación de denuncias gremiales de SINFUSAS." />
+  <link rel="stylesheet" href="assets/css/tailwind.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/icons.js"></script>
+</head>
+
+<body class="bg-whiter dark:bg-boxdark-2 text-body dark:text-bodydark flex flex-col min-h-screen">
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 w-full bg-white dark:bg-boxdark border-b border-stroke dark:border-strokedark h-16 shadow-default">
+    <div class="max-w-4xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-3">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="h-10 w-10 rounded-xl text-white flex items-center justify-center font-bold shadow-default flex-shrink-0" style="background: linear-gradient(135deg, #465fff 0%, #6366f1 100%);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m14.5 12.5-8 8a2.119 2.119 0 0 1-3-3l8-8"/>
+            <path d="m16 16 6-6"/><path d="m8 8 6-6"/>
+            <path d="m9 7 8 8"/><path d="m21 11-8-8"/>
+          </svg>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-base text-black dark:text-white truncate">SINFUSAS</span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold" style="background-color: rgba(18,183,106,0.1); color: #12b76a; border: 1px solid rgba(18,183,106,0.2);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>Canal Seguro</span>
+            </span>
+          </div>
+          <span class="text-[11px] text-body dark:text-bodydark truncate">Portal Oficial de Denuncias Gremiales</span>
+        </div>
+      </a>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <a href="seguimiento.html" class="inline-flex items-center gap-1.5 rounded-lg border border-stroke dark:border-strokedark bg-white dark:bg-boxdark py-2 px-3 text-xs font-medium text-black dark:text-white hover:border-primary transition shadow-default">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #465fff;">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+          <span class="hidden sm:inline">Rastrear Folio</span>
+        </a>
+
+        <button onclick="toggleTheme()" class="theme-toggle-btn">
+          <span>Modo</span>
+        </button>
+
+        <a href="admin/login.html" title="Consola Administrativa" class="h-9 w-9 rounded-lg flex items-center justify-center border border-stroke dark:border-strokedark bg-white dark:bg-boxdark text-body dark:text-bodydark hover:text-primary hover:border-primary transition shadow-default">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-5">
+
+    <!-- Hero Banner with Gradient -->
+    <div class="rounded-2xl overflow-hidden shadow-default" style="background: linear-gradient(135deg, #465fff 0%, #6366f1 40%, #8b5cf6 70%, #a855f7 100%);">
+      <div class="relative p-5 sm:p-7">
+        <!-- Decorative circles -->
+        <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.08);"></div>
+        <div style="position:absolute;bottom:-20px;left:40px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.06);"></div>
+        
+        <div class="flex items-start gap-4 relative">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="flex flex-col min-w-0 pr-1">
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+              <h1 class="text-sm sm:text-base font-bold text-white">Canal Oficial Gestionado por SINFUSAS</h1>
+              <span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>Confidencial</span>
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm leading-relaxed" style="color: rgba(255,255,255,0.85);">
+              Tu reporte será evaluado bajo estricta reserva gremial. Al enviarlo recibirás un <strong style="color:white;">código único de 6 dígitos</strong> para consultar avances y resoluciones de tu expediente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de Radicación de Denuncia -->
+    <form id="denunciaForm" class="rounded-2xl border border-stroke bg-white dark:border-strokedark dark:bg-boxdark p-5 sm:p-8 shadow-default space-y-6">
+
+      <!-- 1. Identidad del Reportante -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="text-xs sm:text-sm font-semibold text-black dark:text-white flex items-center gap-2">
+            <span class="flex h-7 w-7 items-center justify-center rounded-lg" style="background: rgba(70,95,255,0.1); color: #465fff;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </span>
+            <span>Modalidad de Identidad</span>
+          </label>
+          <span class="text-[10px] px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1" id="anon-badge" style="background-color: rgba(18,183,106,0.1); color: #12b76a; border: 1px solid rgba(18,183,106,0.2);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <span>Recomendado</span>
+          </span>
+        </div>
+
+        <!-- Selector Anónimo vs Identificado (Segmented Pill) -->
+        <div class="grid grid-cols-2 p-1.5 rounded-xl bg-gray-2 dark:bg-boxdark-2 border border-stroke dark:border-strokedark">
+          <button type="button" id="btn-anonimo" class="py-2.5 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all bg-white dark:bg-boxdark text-primary shadow-default">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>
+            </svg>
+            <span>100% Anónima</span>
+          </button>
+          <button type="button" id="btn-identificado" class="py-2.5 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all text-body dark:text-bodydark hover:text-black dark:hover:text-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span>Con mis Datos</span>
+          </button>
+        </div>
+
+        <!-- Campo Denunciante (Oculto en modo anónimo) -->
+        <div id="panel-datos-personales" class="hidden pt-2 space-y-2">
+          <label class="text-xs font-medium text-black dark:text-white" for="denunciante">Nombre completo o Seudónimo</label>
+          <div class="relative">
+            <input type="text" id="denunciante" name="denunciante" placeholder="Ej. Alejandra Morales Cruz"
+              class="w-full rounded-lg border border-stroke dark:border-strokedark bg-transparent py-2.5 pl-10 pr-4 text-sm text-black dark:text-white outline-none focus:border-primary" />
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-body dark:text-bodydark">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+          </div>
+          <p class="text-[11px] text-body dark:text-bodydark flex items-center gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#12b76a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Tus datos solo serán accesibles para la comisión gremial directiva.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="border-t border-stroke dark:border-strokedark"></div>
+
+      <!-- 2. Título de la Denuncia -->
+      <div class="space-y-2">
+        <label class="text-xs sm:text-sm font-semibold text-black dark:text-white flex items-center justify-between" for="titulo">
+          <span class="flex items-center gap-2">
+            <span class="flex h-7 w-7 items-center justify-center rounded-lg" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/>
+              </svg>
+            </span>
+            <span>Título o Resumen del Hecho</span>
+          </span>
+          <span class="text-[10px] font-semibold" style="color: #f04438;">* Requerido</span>
+        </label>
+        <input type="text" id="titulo" name="titulo" required
+          placeholder="Breve resumen del hecho (ej. Anomalía en asignación de turnos)"
+          class="w-full rounded-lg border border-stroke dark:border-strokedark bg-transparent py-3 px-4 text-sm text-black dark:text-white outline-none focus:border-primary" />
+      </div>
+
+      <div class="border-t border-stroke dark:border-strokedark"></div>
+
+      <!-- 3. Tipo de Incidente -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <label class="text-xs sm:text-sm font-semibold text-black dark:text-white flex items-center gap-2">
+            <span class="flex h-7 w-7 items-center justify-center rounded-lg" style="background: rgba(234,88,12,0.1); color: #ea580c;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/>
+                <rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>
+              </svg>
+            </span>
+            <span>Motivo o Categoría de la Incidencia</span>
+          </label>
+          <span class="text-[10px] font-semibold" style="color: #f04438;">* Requerido</span>
+        </div>
+
+        <input type="hidden" id="tipo_id" name="tipo_id" required value="" />
+
+        <!-- Tarjetas de categoría dinámicas -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="tipo-cards-container">
+          <div class="p-4 text-center text-xs text-body dark:text-bodydark">Cargando catálogo de motivos...</div>
+        </div>
+      </div>
+
+      <div class="border-t border-stroke dark:border-strokedark"></div>
+
+      <!-- 4. Relato Detallado -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <label class="text-xs sm:text-sm font-semibold text-black dark:text-white flex items-center gap-2" for="descripcion">
+            <span class="flex h-7 w-7 items-center justify-center rounded-lg" style="background: rgba(6,182,212,0.1); color: #06b6d4;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/>
+              </svg>
+            </span>
+            <span>Relato Detallado de los Hechos</span>
+          </label>
+          <span class="text-[11px] text-body dark:text-bodydark font-mono" id="char-count">0 / 2000</span>
+        </div>
+        <textarea id="descripcion" name="descripcion" maxlength="2000" required rows="5"
+          placeholder="Describe detalladamente lo ocurrido, fechas estimadas, contexto y posibles involucrados..."
+          class="w-full rounded-lg border border-stroke dark:border-strokedark bg-transparent p-4 text-sm text-black dark:text-white outline-none focus:border-primary resize-none"></textarea>
+        
+        <div class="rounded-xl p-3.5 flex items-start gap-3 text-xs text-body dark:text-bodydark border border-stroke dark:border-strokedark" style="background: linear-gradient(135deg, rgba(70,95,255,0.04) 0%, rgba(139,92,246,0.04) 100%);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#465fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5">
+            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+            <path d="M9 18h6"/><path d="M10 22h4"/>
+          </svg>
+          <p class="leading-relaxed"><strong class="text-black dark:text-white">Consejo de seguridad:</strong> Si deseas mantener confidencialidad estricta, evita incluir datos que permitan deducir tu identidad directamente.</p>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="pt-2">
+        <button type="submit" id="submitBtn"
+          class="flex w-full justify-center items-center gap-2.5 rounded-xl py-3.5 px-6 font-semibold text-sm text-white shadow-default transition active:scale-[0.99] cursor-pointer"
+          style="background: linear-gradient(135deg, #465fff 0%, #6366f1 50%, #8b5cf6 100%);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          <span>Registrar Denuncia en SINFUSAS</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-xs text-body dark:text-bodydark">
+      © 2026 SINFUSAS - Sistema de Gestión y Tramitación de Denuncias Gremiales.
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
